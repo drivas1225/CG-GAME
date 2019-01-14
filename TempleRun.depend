@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1547474583 source:c:\users\lenovo\desktop\practicas_glut\templerun\main.cpp
+	<windows.h>
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+	<GL/glut.h>
+
+1547479356 source:c:\users\lenovo\desktop\practicas glut\templerun\main.cpp
+	<windows.h>
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+	"Player.h"
+	<GL/glut.h>
+
+1547480717 c:\users\lenovo\desktop\practicas glut\templerun\player.h
+	<iostream>
+	"math.h"
+	<GL/glut.h>
+
+976692172 c:\users\lenovo\desktop\practicas glut\tp1\glut\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
