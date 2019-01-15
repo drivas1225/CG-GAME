@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -28,12 +28,16 @@ GLvoid window_reshape(GLsizei width, GLsizei height);
 GLvoid window_key(unsigned char key, int x, int y);
 
 
+///Putaje
+int SCORE = 0;
+
+
 ///Player
 Player pl;
 
 ///coins
 vector<Coin> coins;
-int numCoins = 5;
+int numCoins = 10;
 
 
 ///Obstacles
@@ -162,9 +166,13 @@ void RotateCamera()
 }
 int main(int argc, char **argv)
 {
-    for(int i=0; i<enemies;i++){
+    for(int i=0; i<enemies; i++){
         Obstacle obs(i);
         obstacles.push_back(obs);
+    }
+    for(int i=0; i<numCoins; i++){
+    	Coin coin;
+    	coins.push_back(coin);
     }
 
     glutInit(&argc, argv);
@@ -226,6 +234,10 @@ float distancia_euclideana(Player jugador, Obstacle obstaculo){
     return sqrt(pow(jugador.PosX-obstaculo.PosX,2)+pow(jugador.PosY-obstaculo.PosY,2)+pow(jugador.PosZ-obstaculo.PosZ,2));
 }
 
+float distancia_euclideana_coin(Player jugador, Coin obstaculo){
+    return sqrt(pow(jugador.PosX-obstaculo.PosX,2)+pow(jugador.PosY-obstaculo.PosY,2)+pow(jugador.PosZ-obstaculo.PosZ,2));
+}
+
 GLvoid window_display()
 {
     time_h = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
@@ -256,6 +268,20 @@ GLvoid window_display()
             obstacles[i].updatePositions(pl.PosZ,i);
         }
         obstacles[i].display();
+    }
+    for(int i =0; i<obstacles.size(); i++){
+        float dist = distancia_euclideana_coin(pl,coins[i]);
+        if(dist<0.75) {
+        	if(!coins[i].gotcha){
+        		SCORE++;
+            	coins[i].gotcha = true;  
+            	cout<<"SCORE: "<<SCORE<<endl;          
+        	}
+        }
+        if(coins[i].PosZ > pl.PosZ+2){
+            coins[i].updatePositions(pl.PosZ);
+        }
+        coins[i].display();
     }
 //    pl.move();
     /*dibujar aqui*/

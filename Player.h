@@ -31,7 +31,7 @@ public:
         if(jump){
             double y2 = 1.5*(sin(alpha*3.1416/180));
             //if (y2<0) y2=y2*-1;
-            alpha = alpha + angulo * dt * 24 ;
+            alpha = alpha + 300* dt ;
             PosY = y2;
             if (alpha >=180){
               jump = false;
@@ -39,7 +39,7 @@ public:
             }
         }
         if(slide && !jump){
-            alpha = alpha + angulo*0.1;
+            alpha = alpha + 300*dt;
             //glPushMatrix();
             glScaled(1,1/2,1);
             //glTranslated(PosX,PosY,PosZ);
@@ -53,7 +53,7 @@ public:
         }
         //gluLookAt(PosX, PosY, PosZ+1, PosX, PosY, PosZ, 0, 1, 0);
 
-        PosZ -= 0.1;
+        PosZ -= 30*dt;
         glTranslated(PosX,PosY,PosZ);
         glRotatef(90,0,1,0);
         glColor3f(1.0,1.0,0);
