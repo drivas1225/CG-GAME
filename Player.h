@@ -26,6 +26,7 @@ public:
 
     void display(double dt)
     {
+
         glPushMatrix();
         if(jump){
             double y2 = 1.5*(sin(alpha*3.1416/180));
@@ -53,7 +54,7 @@ public:
         //gluLookAt(PosX, PosY, PosZ+1, PosX, PosY, PosZ, 0, 1, 0);
         PosZ -= 0.1;
         glTranslated(PosX,PosY,PosZ);
-        glColor3f(1.0,1.0,1.0);
+        glColor3f(1.0,1.0,0);
         glutSolidTeapot(0.5);
         glPopMatrix();
     }
@@ -65,6 +66,11 @@ public:
         {
         case GLUT_KEY_UP:
             jump = true;
+            if(slide){
+              alpha = 0;
+              slide = false;
+            }
+
             break;
 
         case GLUT_KEY_DOWN:

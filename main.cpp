@@ -76,24 +76,14 @@ float dt;
 //dibuja un simple gizmo
 void displayGizmo()
 {
-    glBegin(GL_LINES);
-    glColor3d(255,0,0);
-    glVertex2d(0, 0);
-    glVertex2d(255, 0);
-    glColor3d(0, 255, 0);
-    glVertex2d(0, 0);
-    glVertex2d(0, 50);
-    glColor3d(0, 0, 255);
-    glVertex3d(0, 0, -10-pl.PosZ);
-    glVertex3d(0, 0, pl.PosZ-70);
-    glEnd();
+    glBegin(GL_QUADS);
     glColor3f(1,1,1);
-    glutSolidCube(40);
-    glPushMatrix();
-    glTranslated(0,0,-5);
-    glutSolidCube(1);
-    glPopMatrix();
-}
+    glVertex3d(-2, -1,-10-pl.PosZ);
+    glVertex3d(2, -1,-10-pl.PosZ);
+    glVertex3d(1.5, -1,pl.PosZ - 170);
+    glVertex3d(-2, -1,pl.PosZ - 170);
+    glEnd();
+    }
 
 //function called on each frame
 GLvoid window_idle();
