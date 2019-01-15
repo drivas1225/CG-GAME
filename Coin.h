@@ -31,14 +31,17 @@ public:
     }
 
     void display(){
-        glPushMatrix();
-        glTranslated(PosX,PosY,PosZ);
-        //if(PosY>0) glColor3f(0,0,1);
-        /*else*/ glColor3f(0.62,0.56,0.0038);
+        if(!gotcha){
+            glPushMatrix();
+            glTranslated(PosX,PosY,PosZ);
+            //if(PosY>0) glColor3f(0,0,1);
+            /*else*/ glColor3f(0.62,0.56,0.0038);
 
-        glutSolidCube(0.3);
-        //glutSolidSphere(0.3,50,50);
-        glPopMatrix();
+            glutSolidCube(0.3);
+            //glutSolidSphere(0.3,50,50);
+            glPopMatrix();
+        }
+
     }
 
 };

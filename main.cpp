@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-//#include <windows.h>
+#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -274,8 +274,8 @@ GLvoid window_display()
         if(dist<0.75) {
         	if(!coins[i].gotcha){
         		SCORE++;
-            	coins[i].gotcha = true;  
-            	cout<<"SCORE: "<<SCORE<<endl;          
+            	coins[i].gotcha = true;
+            	cout<<"SCORE: "<<SCORE<<endl;
         	}
         }
         if(coins[i].PosZ > pl.PosZ+2){
@@ -287,6 +287,9 @@ GLvoid window_display()
     /*dibujar aqui*/
 
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+    //glViewport(0, 0, 0, 10);
+
 
 
     glutSwapBuffers();
