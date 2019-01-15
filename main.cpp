@@ -6,7 +6,9 @@
 #include <iostream>
 #include "Player.h"
 #include "Obstacle.h"
+#include "Coin.h"
 #include <vector>
+
 
 #include <GL/glut.h>
 using namespace std;
@@ -28,6 +30,11 @@ GLvoid window_key(unsigned char key, int x, int y);
 
 ///Player
 Player pl;
+
+///coins
+vector<Coin> coins;
+int numCoins = 5;
+
 
 ///Obstacles
 vector<Obstacle> obstacles;
@@ -237,13 +244,13 @@ GLvoid window_display()
     ///Mover la esecena
     //gluLookAt(CamPosX,CamPosY,CamPosZ,CentX,CentY,CentZ,AngX,AngY,AngZ);
     gluLookAt(0, 3, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
-    RotateCamera();
+
     pl.display(dt);
     displayGizmo();
     for(int i =0; i<obstacles.size(); i++){
         float dist = distancia_euclideana(pl,obstacles[i]);
-        if(dist<1) {
-            cout<<"GAME OVER!!!"<<endl;
+        if(dist<0.75) {
+            cout<<"GAME OVER!!! ->"<<dist<<endl;
         }
         if(obstacles[i].PosZ > pl.PosZ+2){
             obstacles[i].updatePositions(pl.PosZ,i);

@@ -52,8 +52,10 @@ public:
             }
         }
         //gluLookAt(PosX, PosY, PosZ+1, PosX, PosY, PosZ, 0, 1, 0);
+
         PosZ -= 0.1;
         glTranslated(PosX,PosY,PosZ);
+        glRotatef(90,0,1,0);
         glColor3f(1.0,1.0,0);
         glutSolidTeapot(0.5);
         glPopMatrix();

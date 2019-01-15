@@ -42,6 +42,8 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Users/Lenovo/Desktop/practicas glut/TP1/glut/lib" />
 		</Linker>
+		<Unit filename="Coin.h" />
+		<Unit filename="Obstacle.h" />
 		<Unit filename="Player.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

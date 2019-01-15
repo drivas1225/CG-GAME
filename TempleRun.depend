@@ -34,7 +34,7 @@
 	<random>
 	<time.h>
 
-1547564572 source:c:\spring\work space\cg-game\main.cpp
+1547566411 source:c:\spring\work space\cg-game\main.cpp
 	<windows.h>
 	<math.h>
 	<stdlib.h>
@@ -45,12 +45,12 @@
 	<vector>
 	<GL/glut.h>
 
-1547564593 c:\spring\work space\cg-game\player.h
+1547566167 c:\spring\work space\cg-game\player.h
 	<iostream>
 	"math.h"
 	<GL/glut.h>
 
-1547561016 c:\spring\work space\cg-game\obstacle.h
+1547566703 c:\spring\work space\cg-game\obstacle.h
 	<iostream>
 	<GL/glut.h>
 	<random>
