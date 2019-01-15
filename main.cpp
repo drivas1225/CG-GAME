@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <iostream>
 #include "Player.h"
+#include "Obstacle.h"
+#include <vector>
 
 #include <GL/glut.h>
 using namespace std;
@@ -15,6 +17,7 @@ using namespace std;
 #define ALPHA 1
 
 #define ECHAP 27
+
 void init_scene();
 void render_scene();
 GLvoid initGL();
@@ -25,6 +28,11 @@ GLvoid window_key(unsigned char key, int x, int y);
 
 ///Player
 Player pl;
+
+///Obstacles
+vector<Obstacle> obstacles;
+int enemies = 5;
+
 
 ///Variables de la camara
 double CamPosX = 0;
@@ -60,7 +68,7 @@ float MAX = 8;
 float MIN = -8;
 bool Sentido = 0;
 
-int time=0;
+int time_h=0;
 int timebase=0;
 float dt;
 
@@ -68,17 +76,23 @@ float dt;
 //dibuja un simple gizmo
 void displayGizmo()
 {
-	glBegin(GL_LINES);
-	glColor3d(255,0,0);
-	glVertex2d(0, 0);
-	glVertex2d(50, 0);
-	glColor3d(0, 255, 0);
-	glVertex2d(0, 0);
-	glVertex2d(0, 50);
-	glColor3d(0, 0, 255);
-	glVertex3d(0, 0, 0);
-	glVertex3d(0, 0 , 50);
-	glEnd();
+    glBegin(GL_LINES);
+    glColor3d(255,0,0);
+    glVertex2d(0, 0);
+    glVertex2d(255, 0);
+    glColor3d(0, 255, 0);
+    glVertex2d(0, 0);
+    glVertex2d(0, 50);
+    glColor3d(0, 0, 255);
+    glVertex3d(0, 0, -10-pl.PosZ);
+    glVertex3d(0, 0, pl.PosZ-70);
+    glEnd();
+    glColor3f(1,1,1);
+    glutSolidCube(40);
+    glPushMatrix();
+    glTranslated(0,0,-5);
+    glutSolidCube(1);
+    glPopMatrix();
 }
 
 //function called on each frame
@@ -90,33 +104,32 @@ GLvoid window_idle();
 ///////////////////////////////////////////////////////////////////////////////
 GLvoid callback_special(int key, int x, int y)
 {
-	switch (key)
-	{
-	case GLUT_KEY_UP:
-		//CamPosZ = CamPosZ - velCam;
-		//CentZ = CentZ - velCam;
-		pl.move(key);
-		glutPostRedisplay();			// et on demande le réaffichage.
-		break;
+    switch (key)
+    {
+    case GLUT_KEY_UP:
+        //CamPosZ = CamPosZ - velCam;
+        //CentZ = CentZ - velCam;
+        pl.move(key);
+        glutPostRedisplay();			// et on demande le réaffichage.
+        break;
 
-	case GLUT_KEY_DOWN:
-	    CamPosZ = CamPosZ + velCam;
-	    CentZ = CentZ + velCam;
-		glutPostRedisplay();			// et on demande le réaffichage.
-		break;
+    case GLUT_KEY_DOWN:
+        //CamPosZ = CamPosZ + velCam;
+        //CentZ = CentZ + velCam;
+        pl.move(key);
+        glutPostRedisplay();			// et on demande le réaffichage.
+        break;
 
-	case GLUT_KEY_LEFT:
-	    CamPosX = CamPosX - velCam;
-	    CentX = CentX - velCam;
-		glutPostRedisplay();			// et on demande le réaffichage.
-		break;
+    case GLUT_KEY_LEFT:
+        pl.move(key);
+        glutPostRedisplay();			// et on demande le réaffichage.
+        break;
 
-	case GLUT_KEY_RIGHT:
-	    CamPosX = CamPosX + velCam;
-	    CentX = CentX + velCam;
-		glutPostRedisplay();			// et on demande le réaffichage.
-		break;
-	}
+    case GLUT_KEY_RIGHT:
+        pl.move(key);
+        glutPostRedisplay();			// et on demande le réaffichage.
+        break;
+    }
 }
 
 
@@ -126,11 +139,11 @@ GLvoid callback_special(int key, int x, int y)
 ///////////////////////////////////////////////////////////////////////////////
 GLvoid callback_mouse(int button, int state, int x, int y)
 {
-	if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON)
-	{
+    if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON)
+    {
         temDTX = 0;
         temDTY = 0;
-	}
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -140,10 +153,11 @@ GLvoid callback_motion(int x, int y)
 {
     AngRotX = x - temDTX;
     AngRotY = y - temDTY;
-	glutPostRedisplay();
+    glutPostRedisplay();
 }
 
-void RotateCamera(){
+void RotateCamera()
+{
     glRotated(AngRotY,1.0f,0.0f,0.0f);
     glRotated(AngRotX,0.0f,1.0f,0.0f);
 
@@ -151,102 +165,121 @@ void RotateCamera(){
 }
 int main(int argc, char **argv)
 {
-	glutInit(&argc, argv);
+    for(int i=0; i<enemies;i++){
+        Obstacle obs(i);
+        obstacles.push_back(obs);
+    }
 
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInit(&argc, argv);
+
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 
 
-	glutInitWindowSize(800, 800);
-	glutInitWindowPosition(0, 0);
-	glutCreateWindow("TP 2 : Transformaciones");
+    glutInitWindowSize(800, 800);
+    glutInitWindowPosition(0, 0);
+    glutCreateWindow("TP 2 : Transformaciones");
 
 
-	initGL();
-	init_scene();
+    initGL();
+    init_scene();
 
-	glutDisplayFunc(&window_display);
+    glutDisplayFunc(&window_display);
 
-	glutReshapeFunc(&window_reshape);
+    glutReshapeFunc(&window_reshape);
 
-	glutKeyboardFunc(&window_key);
+    glutKeyboardFunc(&window_key);
 
-	glutSpecialFunc(&callback_special);
-	glutMouseFunc(&callback_mouse);
-	glutMotionFunc(&callback_motion);
+    glutSpecialFunc(&callback_special);
+    glutMouseFunc(&callback_mouse);
+    glutMotionFunc(&callback_motion);
 
-	//function called on each frame
-	glutIdleFunc(&window_idle);
+    //function called on each frame
+    glutIdleFunc(&window_idle);
 
-	glutMainLoop();
+    glutMainLoop();
 
-	return 1;
+    return 1;
 }
 
 
 
 GLvoid initGL()
 {
-	GLfloat position[] = { 0.0f, 5.0f, 10.0f, 0.0 };
+    GLfloat position[] = { 0.0f, 5.0f, 10.0f, 0.0 };
 
-	//enable light : try without it
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	glEnable(GL_LIGHTING);
-	//light 0 "on": try without it
-	glEnable(GL_LIGHT0);
+    //enable light : try without it
+    glLightfv(GL_LIGHT0, GL_POSITION, position);
+    glEnable(GL_LIGHTING);
+    //light 0 "on": try without it
+    glEnable(GL_LIGHT0);
 
-	//shading model : try GL_FLAT
-	glShadeModel(GL_SMOOTH);
+    //shading model : try GL_FLAT
+    glShadeModel(GL_SMOOTH);
 
-	glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
 
-	//enable material : try without it
-	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
+    //enable material : try without it
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    glEnable(GL_COLOR_MATERIAL);
 
-	glClearColor(RED, GREEN, BLUE, ALPHA);
+    glClearColor(RED, GREEN, BLUE, ALPHA);
+}
+
+float distancia_euclideana(Player jugador, Obstacle obstaculo){
+    return sqrt(pow(jugador.PosX-obstaculo.PosX,2)+pow(jugador.PosY-obstaculo.PosY,2)+pow(jugador.PosZ-obstaculo.PosZ,2));
 }
 
 GLvoid window_display()
 {
-    time = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
-    dt = float(time -timebase)/1000.0;// delta time
-    timebase = time;
+    time_h = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
+    dt = float(time_h -timebase)/1000.0;// delta time
+    timebase = time_h;
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
 
-	//glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
+    //glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
     gluPerspective(45,1,0.1,100);
-	//glTranslated(0,0,-30);
+    //glTranslated(0,0,-30);
 
-        ///Mover la esecena
-    gluLookAt(CamPosX,CamPosY,CamPosZ,CentX,CentY,CentZ,AngX,AngY,AngZ);
-
+    ///Mover la esecena
+    //gluLookAt(CamPosX,CamPosY,CamPosZ,CentX,CentY,CentZ,AngX,AngY,AngZ);
+    gluLookAt(0, 3, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
     RotateCamera();
-    pl.display();
+    pl.display(dt);
     displayGizmo();
+    for(int i =0; i<obstacles.size(); i++){
+        float dist = distancia_euclideana(pl,obstacles[i]);
+        if(dist<1) {
+            cout<<"GAME OVER!!!"<<endl;
+        }
+        if(obstacles[i].PosZ > pl.PosZ+2){
+            obstacles[i].updatePositions(pl.PosZ,i);
+        }
+        obstacles[i].display();
+    }
 //    pl.move();
-	/*dibujar aqui*/
+    /*dibujar aqui*/
 
-	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
 
-	glutSwapBuffers();
+    glutSwapBuffers();
 
-	glFlush();
+    glFlush();
 }
 
 GLvoid window_reshape(GLsizei width, GLsizei height)
 {
-	glViewport(0, 0, width, height);
+    glViewport(0, 0, width, height);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
 
-	glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_MODELVIEW);
 }
 
 
@@ -258,15 +291,16 @@ void init_scene()
 
 GLvoid window_key(unsigned char key, int x, int y)
 {
-	switch (key) {
-	case ECHAP:
-		exit(1);
-		break;
+    switch (key)
+    {
+    case ECHAP:
+        exit(1);
+        break;
 
-	default:
-		printf("La touche %d non active.\n", key);
-		break;
-	}
+    default:
+        printf("La touche %d non active.\n", key);
+        break;
+    }
 }
 
 
@@ -275,5 +309,5 @@ GLvoid window_idle()
 {
 
 
-	glutPostRedisplay();
+    glutPostRedisplay();
 }

@@ -7,16 +7,18 @@
 	<iostream>
 	<GL/glut.h>
 
-1547479356 source:c:\users\lenovo\desktop\practicas glut\templerun\main.cpp
+1547561471 source:c:\users\lenovo\desktop\practicas glut\templerun\main.cpp
 	<windows.h>
 	<math.h>
 	<stdlib.h>
 	<stdio.h>
 	<iostream>
 	"Player.h"
+	"Obstacle.h"
+	<vector>
 	<GL/glut.h>
 
-1547480717 c:\users\lenovo\desktop\practicas glut\templerun\player.h
+1547561165 c:\users\lenovo\desktop\practicas glut\templerun\player.h
 	<iostream>
 	"math.h"
 	<GL/glut.h>
@@ -25,4 +27,10 @@
 	<windows.h>
 	<GL/gl.h>
 	<GL/glu.h>
+
+1547561016 c:\users\lenovo\desktop\practicas glut\templerun\obstacle.h
+	<iostream>
+	<GL/glut.h>
+	<random>
+	<time.h>
 

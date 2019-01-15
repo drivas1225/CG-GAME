@@ -4,54 +4,81 @@
 
 using namespace std;
 
-class Player {
-
-private:
-  double PosX;
-  double PosY;
-  double PosZ;
-  double Jump;
-  double alpha = 0;
-  int cantpoints = 50;
-  double angulo = 360/cantpoints;
+class Player
+{
 
 public:
-    Player(){
+    double PosX;
+    double PosY;
+    double PosZ;
+    bool jump = false;
+    bool slide = false;
+    double alpha = 0;
+    int cantpoints = 50;
+    double angulo = 360/cantpoints;
+
+    Player()
+    {
         PosX = 0;
         PosY = 0;
         PosZ = 0;
     }
 
-    display(){
+    void display(double dt)
+    {
         glPushMatrix();
-        double y2 = 4*(cos(alpha*3.1416/180));
-        if (y2<0) y2=y2*-1;
-        alpha = alpha + angulo*0.01 ;
-        PosY = y2;
+        if(jump){
+            double y2 = 1.5*(sin(alpha*3.1416/180));
+            //if (y2<0) y2=y2*-1;
+            alpha = alpha + angulo * dt * 24 ;
+            PosY = y2;
+            if (alpha >=180){
+              jump = false;
+              alpha = 0;
+            }
+        }
+        if(slide && !jump){
+            alpha = alpha + angulo*0.1;
+            //glPushMatrix();
+            glScaled(1,1/2,1);
+            //glTranslated(PosX,PosY,PosZ);
+            //glRotatef(45,1,1,0);
+            //glTranslated(0,0,0);
+            //glPopMatrix();
+            if (alpha >=180){
+              slide = false;
+              alpha = 0;
+            }
+        }
+        //gluLookAt(PosX, PosY, PosZ+1, PosX, PosY, PosZ, 0, 1, 0);
+        PosZ -= 0.1;
         glTranslated(PosX,PosY,PosZ);
         glColor3f(1.0,1.0,1.0);
-        glutSolidTeapot(1);
+        glutSolidTeapot(0.5);
         glPopMatrix();
     }
 
-    void move(int key){
+    void move(int key)
+    {
         glPushMatrix();
         switch (key)
         {
         case GLUT_KEY_UP:
-            //PosY++;
+            jump = true;
             break;
 
         case GLUT_KEY_DOWN:
-            PosY--;
+            slide = true;
             glutPostRedisplay();			// et on demande le réaffichage.
             break;
 
         case GLUT_KEY_LEFT:
+            if(PosX >-1 ) PosX--;
             glutPostRedisplay();			// et on demande le réaffichage.
             break;
 
         case GLUT_KEY_RIGHT:
+            if(PosX < 1) PosX++;
             glutPostRedisplay();			// et on demande le réaffichage.
             break;
         }
