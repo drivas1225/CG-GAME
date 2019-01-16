@@ -94,18 +94,15 @@ public:
     }
 
     void displayGameOver(){
+        glColor4f(0.5F,0.0F,0.5F,0.1f);
         glPushMatrix();
 
         //glTranslated(PosX,PosY+2,PosZ-1);
         glBegin(GL_QUADS);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-        glColor4f(1,1,1,1);
         glVertex3d(-2, -1,PosZ);
         glVertex3d(2, -1,PosZ);
         glVertex3d(2, 4,PosZ);
         glVertex3d(-2, 4,PosZ);
-        glDisable(GL_BLEND);
         glEnd();
         glPopMatrix();
 
