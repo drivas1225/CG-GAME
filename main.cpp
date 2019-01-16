@@ -256,12 +256,10 @@ GLvoid window_display()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
+    glViewport(0,0,700,700);
+
     //glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
     gluPerspective(45,1,0.1,100);
-    //glTranslated(0,0,-30);
-
-    ///Mover la esecena
-    //gluLookAt(CamPosX,CamPosY,CamPosZ,CentX,CentY,CentZ,AngX,AngY,AngZ);
     gluLookAt(0, 1.5, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
 
 
@@ -301,9 +299,21 @@ GLvoid window_display()
 
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
-    //glViewport(0, 0, 0, 10);
-
     glDisable(GL_BLEND);
+
+    glLoadIdentity();
+    glViewport(0,700,800,100);
+    glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
+
+    glBegin(GL_LINE_LOOP);
+    glColor3f(1,1,1);
+    glVertex3d(-25,-25,0);
+    glVertex3d(25,-25,0);
+    glVertex3d(25,25,0);
+    glVertex3d(-25,25,0);
+    glEnd();
+
+    glutSolidCube(10);
 
     glutSwapBuffers();
 

@@ -94,8 +94,8 @@ public:
     }
 
     void displayGameOver(){
-        glColor4f(0.5F,0.0F,0.5F,0.1f);
         glPushMatrix();
+        glColor4f(0.5F,0.0F,0.5F,0.1f);
 
         //glTranslated(PosX,PosY+2,PosZ-1);
         glBegin(GL_QUADS);
