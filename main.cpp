@@ -86,6 +86,9 @@ int timebase=0;
 float dt;
 
 
+bool boom = false;
+
+
 
 
 
@@ -94,10 +97,10 @@ void displayGizmo()
 {
     glBegin(GL_QUADS);
     glColor3f(0.156f,0.396f,0.721f);
-    glVertex3d(-2, -1,-10-pl.PosZ);
-    glVertex3d(2, -1,-10-pl.PosZ);
-    glVertex3d(1.5, -1,pl.PosZ - 170);
-    glVertex3d(-2, -1,pl.PosZ - 170);
+    glVertex3d(-2, -0.5,-10-pl.PosZ);
+    glVertex3d(2, -0.5,-10-pl.PosZ);
+    glVertex3d(1.5, -0.5,pl.PosZ - 170);
+    glVertex3d(-2, -0.5,pl.PosZ - 170);
     glEnd();
     }
 
@@ -267,18 +270,25 @@ GLvoid window_display()
     displayGizmo();
     for(int i =0; i<obstacles.size(); i++){
         float dist = distancia_euclideana(pl,obstacles[i]);
-        if(dist<0.75) {
+        if(!GameOver && dist < 0.75) {
 
-            cout<<"GAME OVER!!! ->"<<dist<<endl;
-            GameOver = true;
-            pl.displayGameOver();
+            if(!obstacles[i].exploited && pl.hit)
+            {
+            	cout<<"entro "<< pl.hit <<endl;
+            	obstacles[i].exploited = true;
+
+            }else if(!obstacles[i].exploited){
+            	cout<<"GAME OVER!!! ->"<<dist<<endl;
+            	GameOver = true;
+         		pl.displayGameOver();
+        	}
         }
         if(obstacles[i].PosZ > pl.PosZ+2){
             obstacles[i].updatePositions(pl.PosZ,i);
         }
         obstacles[i].display();
     }
-    for(int i =0; i<obstacles.size(); i++){
+    for(int i =0; i<coins.size(); i++){
         float dist = distancia_euclideana_coin(pl,coins[i]);
         if(dist<0.75) {
             if(!coins[i].gotcha){
@@ -348,7 +358,9 @@ GLvoid window_key(unsigned char key, int x, int y)
         break;
 
     case SPACE_BAR:
-    	printf("the space bar was pushed");
+    	pl.hit = true;
+    	//pl.hitObject();
+    	printf("the space bar was pushed \n");
     	break;
 
     default:

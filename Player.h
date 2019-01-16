@@ -13,6 +13,7 @@ public:
     double PosZ;
     bool jump = false;
     bool slide = false;
+    bool hit = false;
     double alpha = 0;
     int cantpoints = 50;
     double angulo = 360/cantpoints;
@@ -51,7 +52,14 @@ public:
               alpha = 0;
             }
         }
-        //gluLookAt(PosX, PosY, PosZ+1, PosX, PosY, PosZ, 0, 1, 0);
+
+        if(hit){
+            alpha += 300*dt;
+            if (alpha >=180){
+              hit = false;
+              alpha = 0;
+            }
+        }
 
         PosZ -= 30*dt*(!GameOver);
         glTranslated(PosX,PosY,PosZ);
@@ -91,6 +99,10 @@ public:
             break;
         }
         glPopMatrix();
+    }
+
+    void hitObject(){
+        hit = true;
     }
 
     void displayGameOver(){
