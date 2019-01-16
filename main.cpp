@@ -247,7 +247,8 @@ GLvoid window_display()
     time_h = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
     dt = float(time_h -timebase)/1000.0;// delta time
     timebase = time_h;
-
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);//funcion de transparencia
+	glEnable(GL_BLEND);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_PROJECTION);
@@ -300,7 +301,7 @@ GLvoid window_display()
 
     //glViewport(0, 0, 0, 10);
 
-
+    glDisable(GL_BLEND);
 
     glutSwapBuffers();
 
