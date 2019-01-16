@@ -93,7 +93,7 @@ float dt;
 void displayGizmo()
 {
     glBegin(GL_QUADS);
-    glColor3f(1,1,1);
+    glColor3f(0.156f,0.396f,0.721f);
     glVertex3d(-2, -1,-10-pl.PosZ);
     glVertex3d(2, -1,-10-pl.PosZ);
     glVertex3d(1.5, -1,pl.PosZ - 170);
@@ -187,8 +187,8 @@ int main(int argc, char **argv)
 
 
     glutInitWindowSize(800, 800);
-    glutInitWindowPosition(0, 0);
-    glutCreateWindow("TP 2 : Transformaciones");
+    glutInitWindowPosition(400, 100);
+    glutCreateWindow("Teapot Runner");
 
 
     initGL();
@@ -250,7 +250,6 @@ GLvoid window_display()
     dt = float(time_h -timebase)/1000.0;// delta time
     timebase = time_h;
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);//funcion de transparencia
-	glEnable(GL_BLEND);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_PROJECTION);
@@ -263,35 +262,37 @@ GLvoid window_display()
     gluLookAt(0, 1.5, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
 
 
-        pl.display(dt,GameOver);
-        displayGizmo();
-        for(int i =0; i<obstacles.size(); i++){
-            float dist = distancia_euclideana(pl,obstacles[i]);
-            if(dist<0.75) {
+	glEnable(GL_BLEND);
+    pl.display(dt,GameOver);
+    displayGizmo();
+    for(int i =0; i<obstacles.size(); i++){
+        float dist = distancia_euclideana(pl,obstacles[i]);
+        if(dist<0.75) {
 
-                cout<<"GAME OVER!!! ->"<<dist<<endl;
-                GameOver = true;
-                pl.displayGameOver();
-            }
-            if(obstacles[i].PosZ > pl.PosZ+2){
-                obstacles[i].updatePositions(pl.PosZ,i);
-            }
-            obstacles[i].display();
+            cout<<"GAME OVER!!! ->"<<dist<<endl;
+            GameOver = true;
+            pl.displayGameOver();
         }
-        for(int i =0; i<obstacles.size(); i++){
-            float dist = distancia_euclideana_coin(pl,coins[i]);
-            if(dist<0.75) {
-                if(!coins[i].gotcha){
-                    SCORE++;
-                    coins[i].gotcha = true;
-                    cout<<"SCORE: "<<SCORE<<endl;
-                }
-            }
-            if(coins[i].PosZ > pl.PosZ+2){
-                coins[i].updatePositions(pl.PosZ);
-            }
-            coins[i].display();
+        if(obstacles[i].PosZ > pl.PosZ+2){
+            obstacles[i].updatePositions(pl.PosZ,i);
         }
+        obstacles[i].display();
+    }
+    for(int i =0; i<obstacles.size(); i++){
+        float dist = distancia_euclideana_coin(pl,coins[i]);
+        if(dist<0.75) {
+            if(!coins[i].gotcha){
+                SCORE++;
+                coins[i].gotcha = true;
+                cout<<"SCORE: "<<SCORE<<endl;
+            }
+        }
+        if(coins[i].PosZ > pl.PosZ+2){
+            coins[i].updatePositions(pl.PosZ);
+        }
+        coins[i].display();
+    }
+    glDisable(GL_BLEND);
 
 
 //    pl.move();
@@ -299,7 +300,7 @@ GLvoid window_display()
 
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
-    glDisable(GL_BLEND);
+    
 
     glLoadIdentity();
     glViewport(0,700,800,100);

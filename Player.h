@@ -99,10 +99,10 @@ public:
 
         //glTranslated(PosX,PosY+2,PosZ-1);
         glBegin(GL_QUADS);
-        glVertex3d(-2, -1,PosZ);
-        glVertex3d(2, -1,PosZ);
-        glVertex3d(2, 4,PosZ);
-        glVertex3d(-2, 4,PosZ);
+        glVertex3d(-1, 2,PosZ);
+        glVertex3d(1, 2,PosZ);
+        glVertex3d(1, 3,PosZ);
+        glVertex3d(-1, 3,PosZ);
         glEnd();
         glPopMatrix();
 
