@@ -32,7 +32,7 @@ public:
             double y2 = 1.5*(sin(alpha*3.1416/180));
             //if (y2<0) y2=y2*-1;
             alpha = alpha + 300* dt ;
-            PosY = y2;
+            if(!GameOver) PosY = y2;
             if (alpha >=180){
               jump = false;
               alpha = 0;
@@ -103,8 +103,8 @@ public:
         glColor4f(1,1,1,1);
         glVertex3d(-2, -1,PosZ);
         glVertex3d(2, -1,PosZ);
-        glVertex3d(2, 1,PosZ);
-        glVertex3d(-2, 1,PosZ);
+        glVertex3d(2, 4,PosZ);
+        glVertex3d(-2, 4,PosZ);
         glDisable(GL_BLEND);
         glEnd();
         glPopMatrix();

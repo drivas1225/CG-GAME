@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,6 +19,7 @@ using namespace std;
 #define ALPHA 1
 
 #define ECHAP 27
+#define SPACE_BAR 32
 
 void init_scene();
 void render_scene();
@@ -109,32 +110,33 @@ GLvoid window_idle();
 ///////////////////////////////////////////////////////////////////////////////
 GLvoid callback_special(int key, int x, int y)
 {
-    switch (key)
-    {
-    case GLUT_KEY_UP:
-        //CamPosZ = CamPosZ - velCam;
-        //CentZ = CentZ - velCam;
-        pl.move(key);
-        glutPostRedisplay();			// et on demande le réaffichage.
-        break;
+	if(!GameOver)
+	{
+	    switch (key)
+	    {
+	    case GLUT_KEY_UP:
+	        pl.move(key);
+	        glutPostRedisplay();			// et on demande le réaffichage.
+	        break;
 
-    case GLUT_KEY_DOWN:
-        //CamPosZ = CamPosZ + velCam;
-        //CentZ = CentZ + velCam;
-        pl.move(key);
-        glutPostRedisplay();			// et on demande le réaffichage.
-        break;
+	    case GLUT_KEY_DOWN:
+	        //CamPosZ = CamPosZ + velCam;
+	        //CentZ = CentZ + velCam;
+	        pl.move(key);
+	        glutPostRedisplay();			// et on demande le réaffichage.
+	        break;
 
-    case GLUT_KEY_LEFT:
-        pl.move(key);
-        glutPostRedisplay();			// et on demande le réaffichage.
-        break;
+	    case GLUT_KEY_LEFT:
+	        pl.move(key);
+	        glutPostRedisplay();			// et on demande le réaffichage.
+	        break;
 
-    case GLUT_KEY_RIGHT:
-        pl.move(key);
-        glutPostRedisplay();			// et on demande le réaffichage.
-        break;
-    }
+	    case GLUT_KEY_RIGHT:
+	        pl.move(key);
+	        glutPostRedisplay();			// et on demande le réaffichage.
+	        break;
+	    }
+	}
 }
 
 
@@ -332,6 +334,10 @@ GLvoid window_key(unsigned char key, int x, int y)
     case ECHAP:
         exit(1);
         break;
+
+    case SPACE_BAR:
+    	printf("the space bar was pushed");
+    	break;
 
     default:
         printf("La touche %d non active.\n", key);
