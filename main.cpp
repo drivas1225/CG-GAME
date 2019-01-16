@@ -27,6 +27,7 @@ GLvoid window_display();
 GLvoid window_reshape(GLsizei width, GLsizei height);
 GLvoid window_key(unsigned char key, int x, int y);
 
+bool GameOver = false;
 
 ///Putaje
 int SCORE = 0;
@@ -82,6 +83,9 @@ bool Sentido = 0;
 int time_h=0;
 int timebase=0;
 float dt;
+
+
+
 
 
 //dibuja un simple gizmo
@@ -255,34 +259,40 @@ GLvoid window_display()
 
     ///Mover la esecena
     //gluLookAt(CamPosX,CamPosY,CamPosZ,CentX,CentY,CentZ,AngX,AngY,AngZ);
-    gluLookAt(0, 3, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
+    gluLookAt(0, 1.5, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
 
-    pl.display(dt);
-    displayGizmo();
-    for(int i =0; i<obstacles.size(); i++){
-        float dist = distancia_euclideana(pl,obstacles[i]);
-        if(dist<0.75) {
-            cout<<"GAME OVER!!! ->"<<dist<<endl;
+
+        pl.display(dt,GameOver);
+        displayGizmo();
+        for(int i =0; i<obstacles.size(); i++){
+            float dist = distancia_euclideana(pl,obstacles[i]);
+            if(dist<0.75) {
+
+                cout<<"GAME OVER!!! ->"<<dist<<endl;
+                GameOver = true;
+                pl.displayGameOver();
+            }
+            if(obstacles[i].PosZ > pl.PosZ+2){
+                obstacles[i].updatePositions(pl.PosZ,i);
+            }
+            obstacles[i].display();
         }
-        if(obstacles[i].PosZ > pl.PosZ+2){
-            obstacles[i].updatePositions(pl.PosZ,i);
+        for(int i =0; i<obstacles.size(); i++){
+            float dist = distancia_euclideana_coin(pl,coins[i]);
+            if(dist<0.75) {
+                if(!coins[i].gotcha){
+                    SCORE++;
+                    coins[i].gotcha = true;
+                    cout<<"SCORE: "<<SCORE<<endl;
+                }
+            }
+            if(coins[i].PosZ > pl.PosZ+2){
+                coins[i].updatePositions(pl.PosZ);
+            }
+            coins[i].display();
         }
-        obstacles[i].display();
-    }
-    for(int i =0; i<obstacles.size(); i++){
-        float dist = distancia_euclideana_coin(pl,coins[i]);
-        if(dist<0.75) {
-        	if(!coins[i].gotcha){
-        		SCORE++;
-            	coins[i].gotcha = true;
-            	cout<<"SCORE: "<<SCORE<<endl;
-        	}
-        }
-        if(coins[i].PosZ > pl.PosZ+2){
-            coins[i].updatePositions(pl.PosZ);
-        }
-        coins[i].display();
-    }
+
+
 //    pl.move();
     /*dibujar aqui*/
 

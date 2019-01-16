@@ -24,7 +24,7 @@ public:
         PosZ = 0;
     }
 
-    void display(double dt)
+    void display(double dt, bool GameOver)
     {
 
         glPushMatrix();
@@ -53,7 +53,7 @@ public:
         }
         //gluLookAt(PosX, PosY, PosZ+1, PosX, PosY, PosZ, 0, 1, 0);
 
-        PosZ -= 30*dt;
+        PosZ -= 30*dt*(!GameOver);
         glTranslated(PosX,PosY,PosZ);
         glRotatef(90,0,1,0);
         glColor3f(1.0,1.0,0);
@@ -91,6 +91,24 @@ public:
             break;
         }
         glPopMatrix();
+    }
+
+    void displayGameOver(){
+        glPushMatrix();
+
+        //glTranslated(PosX,PosY+2,PosZ-1);
+        glBegin(GL_QUADS);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+        glColor4f(1,1,1,1);
+        glVertex3d(-2, -1,PosZ);
+        glVertex3d(2, -1,PosZ);
+        glVertex3d(2, 1,PosZ);
+        glVertex3d(-2, 1,PosZ);
+        glDisable(GL_BLEND);
+        glEnd();
+        glPopMatrix();
+
     }
 
 
