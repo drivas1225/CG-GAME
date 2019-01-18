@@ -55,6 +55,16 @@ public:
             }
         }
 
+        if(hit){
+            glPushMatrix();
+            glEnable(GL_BLEND);
+            glTranslated(PosX,PosY,PosZ);
+            glColor4f(0.0f,0.0f,1.0f,0.0001f);
+            glutSolidSphere(0.5,10,10);
+            glDisable(GL_BLEND);
+            glPopMatrix();
+        }
+
         PosZ -= 30*dt*(!GameOver);
         glTranslated(PosX,PosY,PosZ);
         glRotatef(90,0,1,0);

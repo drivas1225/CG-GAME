@@ -280,7 +280,7 @@ GLvoid window_display()
     gluLookAt(0, 1.5, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
 
 
-	glEnable(GL_BLEND);
+	//glEnable(GL_BLEND);
     pl.display(dt,GameOver);
     displayGizmo();
     for(int i =0; i<obstacles.size(); i++){
