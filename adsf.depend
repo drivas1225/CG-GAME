@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1547830252 source:c:\users\alumno-e\desktop\adsf\main.cpp
+	<windows.h>
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+	"Player.h"
+	"Obstacle.h"
+	"Coin.h"
+	<vector>
+	<string.h>
+	<string>
+	<sstream>
+	<GL/glut.h>
+
+1547829442 c:\users\alumno-e\desktop\adsf\player.h
+	<iostream>
+	"math.h"
+	<GL/glut.h>
+
+976692172 c:\users\alumno-e\desktop\tp1\glut\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1547829483 c:\users\alumno-e\desktop\adsf\obstacle.h
+	<iostream>
+	<GL/glut.h>
+	<random>
+	<time.h>
+
+1547830342 c:\users\alumno-e\desktop\adsf\coin.h
+	<iostream>
+	<GL/glut.h>
+	<random>
+	<time.h>
+

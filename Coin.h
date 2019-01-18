@@ -13,7 +13,6 @@ public:
     double PosY;
     double PosZ;
     bool gotcha;
-    int r = 0;
 
     Coin(){
         PosX = rand()%3-1;;
@@ -26,10 +25,7 @@ public:
         PosX = rand()%3-1;
         PosY = rand()%2;
         if(PosY>0) PosY = 1.5;
-        PosZ = z- 50 -(rand()%100) - r;
-        r++;
-        if(r>=10)r=0;
-        cout<<"The final possition of z"<<PosZ<<endl;
+        PosZ = z- 50 -(rand()%100);
         gotcha = false;
     }
 
@@ -37,8 +33,7 @@ public:
         if(!gotcha){
             glPushMatrix();
             glTranslated(PosX,PosY,PosZ);
-            //if(PosY>0) glColor3f(0,0,1);
-            /*else*/ glColor3f(0.62,0.56,0.0038);
+            glColor3f(0.62,0.56,0.0038);
 
             glutSolidCube(0.3);
             //glutSolidSphere(0.3,50,50);

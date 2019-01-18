@@ -1,19 +1,20 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-//#include <windows.h>
+#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
-#include "Player.h"
-#include "Obstacle.h"
-#include "Coin.h"
 #include <vector>
 #include <string.h>
 #include <string>
-
-
+#include <sstream>
 #include <GL/glut.h>
-#include <GL/glx.h>
+//#include <GL/glx.h>
+
+#include "Player.h"
+#include "Obstacle.h"
+#include "Coin.h"
+
 using namespace std;
 
 #define RED 0
@@ -324,7 +325,7 @@ GLvoid window_display()
 
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
-    
+
 
     glLoadIdentity();
     glViewport(0,700,800,100);
@@ -340,21 +341,26 @@ GLvoid window_display()
     glVertex3d(-25,25,0);
     glEnd();
 
-    string s = "Score: " + to_string(SCORE);
+    string s = "Score: " ;/*+ to_string(SCORE);*/
+    //string Result;          // string which will contain the result
+    ostringstream convert;
+    convert << SCORE;
+    s += convert.str();
+
     glPushAttrib(GL_CURRENT_BIT);
     glColor3f(1,1,1);
     glRasterPos3f(-24, -5, 0);
-    
+
 	for (int i = 0; s[i] != '\0'; i ++)
 	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, s[i]);
 	if(GameOver){
 		string gameover = "GAME OVER!";
 		glColor3f(1,1,1);
-		glRasterPos3f(-5, 0, 0);	
+		glRasterPos3f(-5, 0, 0);
 		for (int i = 0; gameover[i] != '\0'; i ++)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, gameover[i]);
 	}
-	
+
 
 
 
@@ -405,10 +411,16 @@ GLvoid window_key(unsigned char key, int x, int y)
     		pl.PosY = 0;
     		pl.PosX = 0;
     		SCORE = 0;
-    		for(int i = 0; i<obstacles.size();i++)
-    			obstacles[i].updatePositions(pl.PosZ,i);
-    		for(int i =0 ; i<coins.size();i++)
-				coins[i].updatePositions(pl.PosZ);
+    		obstacles.clear();
+    		coins.clear();
+    		for(int i=0; i<enemies; i++){
+                Obstacle obs(i);
+                obstacles.push_back(obs);
+            }
+            for(int i=0; i<numCoins; i++){
+                Coin coin;
+                coins.push_back(coin);
+            }
     	}
     	break;
 
