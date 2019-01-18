@@ -63,3 +63,34 @@
 	<random>
 	<time.h>
 
+1547817640 source:c:\users\alumno-e\desktop\cg-game-master\main.cpp
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+	"Player.h"
+	"Obstacle.h"
+	"Coin.h"
+	<vector>
+	<string.h>
+	<string>
+	<GL/glut.h>
+	<GL/glx.h>
+
+1547817640 c:\users\alumno-e\desktop\cg-game-master\player.h
+	<iostream>
+	"math.h"
+	<GL/glut.h>
+
+1547817640 c:\users\alumno-e\desktop\cg-game-master\obstacle.h
+	<iostream>
+	<GL/glut.h>
+	<random>
+	<time.h>
+
+1547817640 c:\users\alumno-e\desktop\cg-game-master\coin.h
+	<iostream>
+	<GL/glut.h>
+	<random>
+	<time.h>
+
