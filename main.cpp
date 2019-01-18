@@ -8,9 +8,12 @@
 #include "Obstacle.h"
 #include "Coin.h"
 #include <vector>
+#include <string.h>
+#include <string>
 
 
 #include <GL/glut.h>
+#include <GL/glx.h>
 using namespace std;
 
 #define RED 0
@@ -247,6 +250,9 @@ float distancia_euclideana_coin(Player jugador, Coin obstaculo){
     return sqrt(pow(jugador.PosX-obstaculo.PosX,2)+pow(jugador.PosY-obstaculo.PosY,2)+pow(jugador.PosZ-obstaculo.PosZ,2));
 }
 
+
+
+
 GLvoid window_display()
 {
     time_h = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
@@ -314,7 +320,9 @@ GLvoid window_display()
 
     glLoadIdentity();
     glViewport(0,700,800,100);
+    glDisable(GL_LIGHTING);
     glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
+    //glClear(0,0,0);
 
     glBegin(GL_LINE_LOOP);
     glColor3f(1,1,1);
@@ -324,7 +332,16 @@ GLvoid window_display()
     glVertex3d(-25,25,0);
     glEnd();
 
-    glutSolidCube(10);
+    string s = "Score: " + to_string(SCORE);
+    glPushAttrib(GL_CURRENT_BIT);
+    glColor3f(1,1,1);
+    glRasterPos3f(-24, -5, 0);
+    
+	for (int i = 0; s[i] != '\0'; i ++)
+	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, s[i]);
+	glEnable(GL_LIGHTING);
+
+	
 
     glutSwapBuffers();
 
