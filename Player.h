@@ -57,11 +57,10 @@ public:
 
         if(hit){
             glPushMatrix();
-            glEnable(GL_BLEND);
+
             glTranslated(PosX,PosY,PosZ);
-            glColor4f(0.0f,0.0f,1.0f,0.0001f);
+            glColor4f(0.0f,0.0f,1.0f,0.0f);
             glutSolidSphere(0.5,10,10);
-            glDisable(GL_BLEND);
             glPopMatrix();
         }
 
@@ -113,15 +112,16 @@ public:
 
     void displayGameOver(){
         glPushMatrix();
-        glColor4f(0.5F,0.0F,0.5F,0.1f);
+        glColor4f(1.0F,0.0F,0.0F,0.7f);
 
-        //glTranslated(PosX,PosY+2,PosZ-1);
+        glTranslated(PosX,PosY,PosZ-2);
         glBegin(GL_QUADS);
-        glVertex3d(-1, 2,PosZ);
-        glVertex3d(1, 2,PosZ);
-        glVertex3d(1, 3,PosZ);
-        glVertex3d(-1, 3,PosZ);
+        glVertex2d(-1, 1);
+        glVertex2d(1, 1);
+        glVertex2d(1, 2);
+        glVertex2d(-1, 2);
         glEnd();
+
         glPopMatrix();
 
     }

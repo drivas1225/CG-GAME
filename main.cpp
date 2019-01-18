@@ -280,7 +280,7 @@ GLvoid window_display()
     gluLookAt(0, 1.5, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
 
 
-	//glEnable(GL_BLEND);
+	glEnable(GL_BLEND);
     pl.display(dt,GameOver);
     displayGizmo();
     for(int i =0; i<obstacles.size(); i++){
@@ -296,9 +296,10 @@ GLvoid window_display()
             	cout<<"GAME OVER!!! ->"<<dist<<endl;
             	GameOver = true;
          		pl.displayGameOver();
+         		break;
         	}
         }
-        if(obstacles[i].PosZ > pl.PosZ+2){
+        if(!GameOver&&obstacles[i].PosZ > pl.PosZ+2){
             obstacles[i].updatePositions(pl.PosZ,i);
         }
         obstacles[i].display();
@@ -316,6 +317,10 @@ GLvoid window_display()
             coins[i].updatePositions(pl.PosZ);
         }
         coins[i].display();
+    }
+
+    if (GameOver){
+        pl.displayGameOver();
     }
     glDisable(GL_BLEND);
 
