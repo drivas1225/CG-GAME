@@ -399,6 +399,18 @@ GLvoid window_key(unsigned char key, int x, int y)
 
     case INTRO:
     	printf("I've pressed Intro keyboard!");
+    	if(GameOver) {
+    		GameOver = false;
+    		pl.PosZ = 0;
+    		pl.PosY = 0;
+    		pl.PosX = 0;
+    		SCORE = 0;
+    		for(int i = 0; i<obstacles.size();i++)
+    			obstacles[i].updatePositions(pl.PosZ,i);
+    		for(int i =0 ; i<coins.size();i++)
+				coins[i].updatePositions(pl.PosZ);
+    	}
+    	break;
 
     default:
     	//pl.hit = false;

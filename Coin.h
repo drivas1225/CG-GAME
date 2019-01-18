@@ -13,6 +13,7 @@ public:
     double PosY;
     double PosZ;
     bool gotcha;
+    int r = 0;
 
     Coin(){
         PosX = rand()%3-1;;
@@ -25,9 +26,11 @@ public:
         PosX = rand()%3-1;
         PosY = rand()%2;
         if(PosY>0) PosY = 1.5;
-        PosZ = z- 50 -(rand()%100);
+        PosZ = z- 50 -(rand()%100) - r;
+        r++;
+        if(r>=10)r=0;
+        cout<<"The final possition of z"<<PosZ<<endl;
         gotcha = false;
-        //cout<< PosX << " "<<PosY<<" "<<PosZ<<endl;
     }
 
     void display(){
