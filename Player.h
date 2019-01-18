@@ -55,14 +55,7 @@ public:
             }
         }
 
-        if(hit){
-            glPushMatrix();
 
-            glTranslated(PosX,PosY,PosZ);
-            glColor4f(0.0f,0.0f,1.0f,0.0f);
-            glutSolidSphere(0.5,10,10);
-            glPopMatrix();
-        }
 
         PosZ -= 30*dt*(!GameOver);
         glTranslated(PosX,PosY,PosZ);
@@ -70,6 +63,14 @@ public:
         glColor3f(1.0,1.0,0);
         glutSolidTeapot(0.5);
         glPopMatrix();
+
+        if(hit){
+            glPushMatrix();
+            glTranslated(PosX,PosY,PosZ);
+            glColor4f(0.0f,0.0f,1.0f,0.2f);
+            glutSolidSphere(0.7,10,10);
+            glPopMatrix();
+        }
     }
 
     void move(int key)
@@ -114,7 +115,7 @@ public:
         glPushMatrix();
         glColor4f(1.0F,0.0F,0.0F,0.7f);
 
-        glTranslated(PosX,PosY,PosZ-2);
+        glTranslated(0,0,PosZ+2);
         glBegin(GL_QUADS);
         glVertex2d(-1, 1);
         glVertex2d(1, 1);

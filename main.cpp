@@ -273,7 +273,7 @@ GLvoid window_display()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    glViewport(0,0,700,700);
+    glViewport(0,0,800,700);
 
     //glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
     gluPerspective(45,1,0.1,100);
@@ -281,7 +281,7 @@ GLvoid window_display()
 
 
 	glEnable(GL_BLEND);
-    pl.display(dt,GameOver);
+
     displayGizmo();
     for(int i =0; i<obstacles.size(); i++){
         float dist = distancia_euclideana(pl,obstacles[i]);
@@ -319,9 +319,12 @@ GLvoid window_display()
         coins[i].display();
     }
 
+    pl.display(dt,GameOver);
+
     if (GameOver){
         pl.displayGameOver();
     }
+
     glDisable(GL_BLEND);
 
 
