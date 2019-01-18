@@ -29,6 +29,13 @@ public:
     {
 
         glPushMatrix();
+        if(hit){
+            alpha += 300*dt;
+            if (alpha >=180){
+              hit = false;
+              alpha = 0;
+            }
+        }
         if(jump){
             double y2 = 1.5*(sin(alpha*3.1416/180));
             //if (y2<0) y2=y2*-1;
@@ -49,14 +56,6 @@ public:
             //glPopMatrix();
             if (alpha >=180){
               slide = false;
-              alpha = 0;
-            }
-        }
-
-        if(hit){
-            alpha += 300*dt;
-            if (alpha >=180){
-              hit = false;
               alpha = 0;
             }
         }
@@ -103,6 +102,7 @@ public:
 
     void hitObject(){
         hit = true;
+        //alpha = 0;
     }
 
     void displayGameOver(){

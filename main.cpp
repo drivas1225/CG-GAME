@@ -105,7 +105,14 @@ void displayGizmo()
     glVertex3d(1.5, -0.5,pl.PosZ - 170);
     glVertex3d(-2, -0.5,pl.PosZ - 170);
     glEnd();
-    }
+    /*glBegin(GL_QUADS);
+    glColor3f(0.1f,0.2f,0.9f);
+    glVertex3d(-10, -0.5,-10-pl.PosZ);
+    glVertex3d(2, -0.5,-10-pl.PosZ);
+    glVertex3d(0, 10,pl.PosZ - 170);
+    glVertex3d(-10, -0.5,pl.PosZ - 170);
+    glEnd();*/
+}
 
 //function called on each frame
 GLvoid window_idle();
@@ -339,9 +346,18 @@ GLvoid window_display()
     
 	for (int i = 0; s[i] != '\0'; i ++)
 	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, s[i]);
-	glEnable(GL_LIGHTING);
-
+	if(GameOver){
+		string gameover = "GAME OVER!";
+		glColor3f(1,1,1);
+		glRasterPos3f(-5, 0, 0);	
+		for (int i = 0; gameover[i] != '\0'; i ++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, gameover[i]);
+	}
 	
+
+
+
+	glEnable(GL_LIGHTING);
 
     glutSwapBuffers();
 
