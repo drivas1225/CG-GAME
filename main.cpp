@@ -23,6 +23,7 @@ using namespace std;
 
 #define ECHAP 27
 #define SPACE_BAR 32
+#define INTRO 13
 
 void init_scene();
 void render_scene();
@@ -396,7 +397,11 @@ GLvoid window_key(unsigned char key, int x, int y)
     	printf("the space bar was pushed \n");
     	break;
 
+    case INTRO:
+    	printf("I've pressed Intro keyboard!");
+
     default:
+    	//pl.hit = false;
         printf("La touche %d non active.\n", key);
         break;
     }

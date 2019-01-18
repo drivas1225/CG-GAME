@@ -29,9 +29,9 @@ public:
     {
 
         glPushMatrix();
-        if(hit){
-            alpha += 300*dt;
-            if (alpha >=180){
+        if(hit && !jump){
+            alpha += 600*dt;
+            if (alpha >= 180){
               hit = false;
               alpha = 0;
             }
@@ -48,12 +48,7 @@ public:
         }
         if(slide && !jump){
             alpha = alpha + 300*dt;
-            //glPushMatrix();
             glScaled(1,1/2,1);
-            //glTranslated(PosX,PosY,PosZ);
-            //glRotatef(45,1,1,0);
-            //glTranslated(0,0,0);
-            //glPopMatrix();
             if (alpha >=180){
               slide = false;
               alpha = 0;
@@ -75,6 +70,7 @@ public:
         {
         case GLUT_KEY_UP:
             jump = true;
+            //hit = false;
             if(slide){
               alpha = 0;
               slide = false;
