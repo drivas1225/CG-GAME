@@ -15,6 +15,7 @@ public:
     bool slide = false;
     bool hit = false;
     double alpha = 0;
+    double alpha2 = 0;
     int cantpoints = 50;
     double angulo = 360/cantpoints;
 
@@ -30,11 +31,11 @@ public:
 
         glPushMatrix();
         if(hit && !jump){
-            alpha += 600*dt;
-            if (alpha >= 180){
+            if (alpha2 >= 180 || GameOver){
               hit = false;
-              alpha = 0;
-            }
+              alpha2 = 0;
+            }else
+                alpha2 += 600*dt;
         }
         if(jump){
             double y2 = 1.5*(sin(alpha*3.1416/180));
@@ -129,3 +130,4 @@ public:
 
 
 };
+

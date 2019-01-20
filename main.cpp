@@ -135,8 +135,6 @@ GLvoid callback_special(int key, int x, int y)
 	        break;
 
 	    case GLUT_KEY_DOWN:
-	        //CamPosZ = CamPosZ + velCam;
-	        //CentZ = CentZ + velCam;
 	        pl.move(key);
 	        glutPostRedisplay();			// et on demande le réaffichage.
 	        break;
@@ -275,7 +273,6 @@ GLvoid window_display()
 
     glViewport(0,0,800,700);
 
-    //glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
     gluPerspective(45,1,0.1,100);
     gluLookAt(0, 1.5, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
 
@@ -289,11 +286,9 @@ GLvoid window_display()
 
             if(!obstacles[i].exploited && pl.hit)
             {
-            	cout<<"entro "<< pl.hit <<endl;
             	obstacles[i].exploited = true;
 
             }else if(!obstacles[i].exploited){
-            	cout<<"GAME OVER!!! ->"<<dist<<endl;
             	GameOver = true;
          		pl.displayGameOver();
          		break;
@@ -310,7 +305,6 @@ GLvoid window_display()
             if(!coins[i].gotcha){
                 SCORE++;
                 coins[i].gotcha = true;
-                cout<<"SCORE: "<<SCORE<<endl;
             }
         }
         if(coins[i].PosZ > pl.PosZ+2){
@@ -328,9 +322,6 @@ GLvoid window_display()
     glDisable(GL_BLEND);
 
 
-//    pl.move();
-    /*dibujar aqui*/
-
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
 
@@ -339,7 +330,6 @@ GLvoid window_display()
     glViewport(0,700,800,100);
     glDisable(GL_LIGHTING);
     glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
-    //glClear(0,0,0);
 
     glBegin(GL_LINE_LOOP);
     glColor3f(1,1,1);
@@ -349,8 +339,7 @@ GLvoid window_display()
     glVertex3d(-25,25,0);
     glEnd();
 
-    string s = "Score: " ;/*+ to_string(SCORE);*/
-    //string Result;          // string which will contain the result
+    string s = "Score: " ;
     ostringstream convert;
     convert << SCORE;
     s += convert.str();
@@ -367,6 +356,10 @@ GLvoid window_display()
 		glRasterPos3f(-5, 0, 0);
 		for (int i = 0; gameover[i] != '\0'; i ++)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, gameover[i]);
+		gameover = "press intro key to start again";
+		glRasterPos3f(-4.6, -10, 0);
+		for (int i = 0; gameover[i] != '\0'; i ++)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, gameover[i]);
 	}
 
 
@@ -408,11 +401,9 @@ GLvoid window_key(unsigned char key, int x, int y)
     case SPACE_BAR:
     	pl.hit = true;
     	//pl.hitObject();
-    	printf("the space bar was pushed \n");
     	break;
 
     case INTRO:
-    	printf("I've pressed Intro keyboard!");
     	if(GameOver) {
     		GameOver = false;
     		pl.PosZ = 0;
@@ -433,7 +424,6 @@ GLvoid window_key(unsigned char key, int x, int y)
     	break;
 
     default:
-    	//pl.hit = false;
         printf("La touche %d non active.\n", key);
         break;
     }
