@@ -34,7 +34,7 @@
 	<random>
 	<time.h>
 
-1547833957 source:c:\spring\work space\cg-game\main.cpp
+1548087199 source:c:\spring\work space\cg-game\main.cpp
 	<windows.h>
 	<math.h>
 	<stdlib.h>
@@ -45,26 +45,29 @@
 	<string>
 	<sstream>
 	<GL/glut.h>
+	<GL/glext.h>
 	"Player.h"
 	"Obstacle.h"
 	"Coin.h"
+	"TextureManager.h"
 
-1547833841 c:\spring\work space\cg-game\player.h
+1548080497 c:\spring\work space\cg-game\player.h
 	<iostream>
 	"math.h"
 	<GL/glut.h>
 
-1547831292 c:\spring\work space\cg-game\obstacle.h
+1548080497 c:\spring\work space\cg-game\obstacle.h
 	<iostream>
 	<GL/glut.h>
 	<random>
 	<time.h>
 
-1547831292 c:\spring\work space\cg-game\coin.h
+1548087328 c:\spring\work space\cg-game\coin.h
 	<iostream>
 	<GL/glut.h>
 	<random>
 	<time.h>
+	"TextureManager.h"
 
 1547817640 source:c:\users\alumno-e\desktop\cg-game-master\main.cpp
 	<math.h>
@@ -96,4 +99,13 @@
 	<GL/glut.h>
 	<random>
 	<time.h>
+
+1548087063 c:\spring\work space\cg-game\texturemanager.h
+	<windows.h>
+	<GL/glut.h>
+	<FreeImage.h>
+	<map>
+
+1548086485 source:c:\spring\work space\cg-game\texturemanager.cpp
+	"TextureManager.h"
 

@@ -9,11 +9,12 @@
 #include <string>
 #include <sstream>
 #include <GL/glut.h>
-//#include <GL/glx.h>
+#include <GL/glext.h>
 
 #include "Player.h"
 #include "Obstacle.h"
 #include "Coin.h"
+#include "TextureManager.h"
 
 using namespace std;
 
@@ -41,6 +42,7 @@ int SCORE = 0;
 
 ///Player
 Player pl;
+GLint sprite;
 
 ///coins
 vector<Coin> coins;
@@ -206,6 +208,9 @@ int main(int argc, char **argv)
 
     initGL();
     init_scene();
+
+
+
 
     glutDisplayFunc(&window_display);
 
