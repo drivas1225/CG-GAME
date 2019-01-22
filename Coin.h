@@ -21,7 +21,7 @@ public:
         PosY = rand()%2;
         PosZ = -50- (rand()%100);
         gotcha = false;
-        texture = TextureManager::Inst()->LoadTexture("background.png", GL_BGRA_EXT, GL_RGBA);
+        texture = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/background.png", GL_BGR_EXT, GL_RGB);
     }
     void updatePositions(double z){
         srand(time(NULL));
@@ -36,12 +36,12 @@ public:
 
         if(!gotcha){
             glPushMatrix();
+            glEnable(GL_TEXTURE_2D);
             glBindTexture(GL_TEXTURE_2D, texture);
             glTranslated(PosX,PosY,PosZ);
-            glTexCoord2f(0.0, 1.0f);
             glColor3f(0.62,0.56,0.0038);
-
             glutSolidCube(0.3);
+            glDisable(GL_TEXTURE);
             //glutSolidSphere(0.3,50,50);
             glPopMatrix();
         }

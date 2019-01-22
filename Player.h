@@ -113,6 +113,8 @@ public:
     }
 
     void displayGameOver(){
+
+
         glPushMatrix();
         glColor4f(1.0F,0.0F,0.0F,0.7f);
 

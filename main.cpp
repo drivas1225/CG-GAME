@@ -187,14 +187,6 @@ void RotateCamera()
 }
 int main(int argc, char **argv)
 {
-    for(int i=0; i<enemies; i++){
-        Obstacle obs(i);
-        obstacles.push_back(obs);
-    }
-    for(int i=0; i<numCoins; i++){
-    	Coin coin;
-    	coins.push_back(coin);
-    }
 
     glutInit(&argc, argv);
 
@@ -224,6 +216,18 @@ int main(int argc, char **argv)
 
     //function called on each frame
     glutIdleFunc(&window_idle);
+
+
+    for(int i=0; i<enemies; i++){
+        Obstacle obs(i);
+        obstacles.push_back(obs);
+    }
+    for(int i=0; i<numCoins; i++){
+    	Coin coin;
+    	coins.push_back(coin);
+    }
+
+
 
     glutMainLoop();
 

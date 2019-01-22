@@ -45,6 +45,8 @@
 		<Unit filename="Coin.h" />
 		<Unit filename="Obstacle.h" />
 		<Unit filename="Player.h" />
+		<Unit filename="TextureManager.cpp" />
+		<Unit filename="TextureManager.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
