@@ -61,7 +61,7 @@ public:
         PosZ -= 30*dt*(!GameOver);
         glTranslated(PosX,PosY,PosZ);
         glRotatef(90,0,1,0);
-        glColor3f(1.0,1.0,0);
+        //glColor3f(1.0,1.0,0);
         glutSolidTeapot(0.5);
         glPopMatrix();
 
@@ -116,15 +116,18 @@ public:
 
 
         glPushMatrix();
-        glColor4f(1.0F,0.0F,0.0F,0.7f);
+        //glColor3f(1.0F,0.0F,0.0F);
 
         glTranslated(0,0,PosZ+2);
+        //glEnable(GL_TEXTURE_2D);
+        //glBindTexture(GL_TEXTURE_2D, texture_gameOver);
         glBegin(GL_QUADS);
-        glVertex2d(-1, 1);
-        glVertex2d(1, 1);
-        glVertex2d(1, 2);
-        glVertex2d(-1, 2);
+        glTexCoord2f(0.0f, 1.0f); glVertex2d(-1, 2);
+        glTexCoord2f(1.0f, 1.0f); glVertex2d(1, 2);
+        glTexCoord2f(1.0f, 0.0f); glVertex2d(1, 1);
+        glTexCoord2f(0.0f, 0.0f); glVertex2d(-1, 1);
         glEnd();
+        glDisable(GL_TEXTURE_2D);
 
         glPopMatrix();
 

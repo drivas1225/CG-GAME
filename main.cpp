@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-//#include <windows.h>
+#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,7 +14,7 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include "Coin.h"
-#include "TextureManager.cpp"
+#include "TextureManager.h"
 
 using namespace std;
 
@@ -97,7 +97,8 @@ bool boom = false;
 
 //texturas
 GLint ground;
-
+GLint texture_teaPot;
+GLint texture_gameOver;
 
 
 
@@ -185,7 +186,9 @@ int main(int argc, char **argv)
     init_scene();
 
 
-    ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
+    ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
+    texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
+    texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA_EXT, GL_RGBA);
 
     glutDisplayFunc(&window_display);
 
@@ -333,10 +336,17 @@ GLvoid window_display()
         coins[i].display();
     }
 
+    ///drow player
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture_teaPot);
     pl.display(dt,GameOver);
+    //glDisable(GL_TEXTURE_2D);
 
     if (GameOver){
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture_gameOver);
         pl.displayGameOver();
+
     }
 
     glDisable(GL_BLEND);
@@ -347,7 +357,7 @@ GLvoid window_display()
 
 
     glLoadIdentity();
-    glViewport(0,700,800,100);
+    glViewport(0,700,800,50);
     glDisable(GL_LIGHTING);
     glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
 
