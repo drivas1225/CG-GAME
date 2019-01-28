@@ -95,28 +95,11 @@ float dt;
 
 bool boom = false;
 
+//texturas
+GLint ground;
 
 
 
-
-//dibuja un simple gizmo
-void displayGizmo()
-{
-    glBegin(GL_QUADS);
-    glColor3f(0.156f,0.396f,0.721f);
-    glVertex3d(-2, -0.5,-10-pl.PosZ);
-    glVertex3d(2, -0.5,-10-pl.PosZ);
-    glVertex3d(1.5, -0.5,pl.PosZ - 170);
-    glVertex3d(-2, -0.5,pl.PosZ - 170);
-    glEnd();
-    /*glBegin(GL_QUADS);
-    glColor3f(0.1f,0.2f,0.9f);
-    glVertex3d(-10, -0.5,-10-pl.PosZ);
-    glVertex3d(2, -0.5,-10-pl.PosZ);
-    glVertex3d(0, 10,pl.PosZ - 170);
-    glVertex3d(-10, -0.5,pl.PosZ - 170);
-    glEnd();*/
-}
 
 //function called on each frame
 GLvoid window_idle();
@@ -202,7 +185,7 @@ int main(int argc, char **argv)
     init_scene();
 
 
-
+    ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
 
     glutDisplayFunc(&window_display);
 
@@ -235,6 +218,27 @@ int main(int argc, char **argv)
 }
 
 
+//dibuja el suelo
+void displayGizmo()
+{
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, ground);
+    glBegin(GL_QUADS);
+    //glColor3f(0.156f,0.396f,0.721f);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3d(1.5, -0.5,pl.PosZ - 170);
+    glTexCoord2f(1.0, 0.0f);
+    glVertex3d(2, -0.5,-10-pl.PosZ);
+    glTexCoord2f(0.0, 0.0f);
+    glVertex3d(-2, -0.5,-10-pl.PosZ);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3d(-2, -0.5,pl.PosZ - 170);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+}
+
+
+
 
 GLvoid initGL()
 {
@@ -245,6 +249,13 @@ GLvoid initGL()
     glEnable(GL_LIGHTING);
     //light 0 "on": try without it
     glEnable(GL_LIGHT0);
+    glEnable(GL_TEXTURE_2D);
+    //glShadeModel(GL_SMOOTH); // modelo de shading try GL_FLAT
+    //glEnable(GL_CULL_FACE); //no trata las caras escondidas
+    //glEnable(GL_DEPTH_TEST); // Activa el Z-Buffer
+    //glDepthFunc(GL_LEQUAL); //Modo de funcionamiento del Z-Buffer
+    //glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Activa la corrección de perspectiva
+
 
     //shading model : try GL_FLAT
     glShadeModel(GL_SMOOTH);
