@@ -40,9 +40,12 @@ public:
             //if(PosY>0) glColor3f(0,0,1);
             //else glColor3f(1,1,1);
             if(t>=10){
-                double x2 = 1.5*(sin(alpha*3.1416/180));
-                alpha += 300*0.01;
-                PosX = x2;
+                int effect = rand()%10;
+                //if(effect>=8){
+                    double x2 = 1.5*(sin(alpha*3.1416/180));
+                    alpha += 300*0.01;
+                    PosX = x2;
+                //}
             }
 
             glTranslated(PosX,PosY,PosZ);
