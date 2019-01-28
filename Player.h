@@ -66,11 +66,13 @@ public:
         glPopMatrix();
 
         if(hit){
+            glEnable(GL_BLEND);
             glPushMatrix();
             glTranslated(PosX,PosY,PosZ);
             glColor4f(0.0f,0.0f,1.0f,0.2f);
             glutSolidSphere(0.7,10,10);
             glPopMatrix();
+            glDisable(GL_BLEND);
         }
     }
 
