@@ -10,6 +10,7 @@
 #include <sstream>
 #include <GL/glut.h>
 #include <GL/glext.h>
+#include <ctime>
 
 #include "Player.h"
 #include "Obstacle.h"
@@ -35,6 +36,7 @@ GLvoid window_reshape(GLsizei width, GLsizei height);
 GLvoid window_key(unsigned char key, int x, int y);
 
 bool GameOver = false;
+time_t start,end;
 
 ///Putaje
 int SCORE = 0;
@@ -43,6 +45,8 @@ int SCORE = 0;
 ///Player
 Player pl;
 GLint sprite;
+GLint spike;
+
 
 ///coins
 vector<Coin> coins;
@@ -52,6 +56,10 @@ int numCoins = 10;
 ///Obstacles
 vector<Obstacle> obstacles;
 int enemies = 5;
+
+
+GLUquadricObj *sphere = NULL;
+
 
 
 ///Variables de la camara
@@ -185,10 +193,14 @@ int main(int argc, char **argv)
     initGL();
     init_scene();
 
+    time (&start);
+
+
 
     ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA_EXT, GL_RGBA);
+    spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_RGB, GL_RGB);
 
     glutDisplayFunc(&window_display);
 
@@ -285,6 +297,7 @@ float distancia_euclideana_coin(Player jugador, Coin obstaculo){
 
 GLvoid window_display()
 {
+    clock_t end = clock();
     time_h = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
     dt = float(time_h -timebase)/1000.0;// delta time
     timebase = time_h;
@@ -320,7 +333,13 @@ GLvoid window_display()
         if(!GameOver&&obstacles[i].PosZ > pl.PosZ+2){
             obstacles[i].updatePositions(pl.PosZ,i);
         }
-        obstacles[i].display();
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, spike);
+        time (&end);
+        cout<<"the time is: "<<difftime(end,start)<<endl;
+        obstacles[i].display(difftime(end,start));
+        glDisable(GL_TEXTURE_2D);
+
     }
     for(int i =0; i<coins.size(); i++){
         float dist = distancia_euclideana_coin(pl,coins[i]);
@@ -450,6 +469,7 @@ GLvoid window_key(unsigned char key, int x, int y)
                 Coin coin;
                 coins.push_back(coin);
             }
+            time(&start);
     	}
     	break;
 
