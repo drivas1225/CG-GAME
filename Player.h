@@ -1,6 +1,7 @@
 #include<iostream>
 #include "math.h"
 #include<GL/glut.h>
+#include "TextureManager.h"
 
 using namespace std;
 
@@ -18,12 +19,27 @@ public:
     double alpha2 = 0;
     int cantpoints = 50;
     double angulo = 360/cantpoints;
+    GLUquadricObj * sphere = NULL;
+    GLint texture_shield;
 
     Player()
     {
         PosX = 0;
         PosY = 0;
         PosZ = 0;
+
+    }
+    void display_shield(){
+
+        sphere = gluNewQuadric();
+        glPushMatrix();
+        glTranslated(PosX,PosY,PosZ);
+        gluQuadricDrawStyle(sphere, GLU_FILL);
+        gluQuadricTexture(sphere, 1);
+        gluQuadricNormals(sphere, GLU_SMOOTH);
+        gluSphere(sphere,0.7,10,10);
+        gluDeleteQuadric(sphere);
+        glPopMatrix();
     }
 
     void display(double dt, bool GameOver)
@@ -65,15 +81,7 @@ public:
         glutSolidTeapot(0.5);
         glPopMatrix();
 
-        if(hit){
-            glEnable(GL_BLEND);
-            glPushMatrix();
-            glTranslated(PosX,PosY,PosZ);
-            glColor4f(0.0f,0.0f,1.0f,0.2f);
-            glutSolidSphere(0.7,10,10);
-            glPopMatrix();
-            glDisable(GL_BLEND);
-        }
+
     }
 
     void move(int key)

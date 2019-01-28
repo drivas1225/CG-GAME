@@ -34,7 +34,7 @@
 	<random>
 	<time.h>
 
-1548695341 source:c:\spring\work space\cg-game\main.cpp
+1548696804 source:c:\spring\work space\cg-game\main.cpp
 	<windows.h>
 	<math.h>
 	<stdlib.h>
@@ -46,21 +46,24 @@
 	<sstream>
 	<GL/glut.h>
 	<GL/glext.h>
+	<ctime>
 	"Player.h"
 	"Obstacle.h"
 	"Coin.h"
 	"TextureManager.h"
 
-1548694878 c:\spring\work space\cg-game\player.h
+1548697174 c:\spring\work space\cg-game\player.h
 	<iostream>
 	"math.h"
 	<GL/glut.h>
+	"TextureManager.h"
 
-1548689888 c:\spring\work space\cg-game\obstacle.h
+1548695566 c:\spring\work space\cg-game\obstacle.h
 	<iostream>
 	<GL/glut.h>
 	<random>
 	<time.h>
+	<ctime>
 
 1548692309 c:\spring\work space\cg-game\coin.h
 	<iostream>
