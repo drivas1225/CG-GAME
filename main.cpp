@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,7 +14,7 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include "Coin.h"
-#include "TextureManager.h"
+#include "TextureManager.cpp"
 
 using namespace std;
 
