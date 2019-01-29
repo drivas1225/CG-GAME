@@ -34,7 +34,7 @@
 	<random>
 	<time.h>
 
-1548775064 source:c:\spring\work space\cg-game\main.cpp
+1548775385 source:c:\spring\work space\cg-game\main.cpp
 	<windows.h>
 	<math.h>
 	<stdlib.h>
@@ -112,7 +112,7 @@
 1548086485 source:c:\spring\work space\cg-game\texturemanager.cpp
 	"TextureManager.h"
 
-1548774003 c:\spring\work space\cg-game\stage.h
+1548777222 c:\spring\work space\cg-game\stage.h
 	<iostream>
 	<GL/glut.h>
 	<random>

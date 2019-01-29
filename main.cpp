@@ -211,7 +211,7 @@ int main(int argc, char **argv)
     texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
-    texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map.jpg", GL_BGR, GL_RGB);
+    texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map1.jpg", GL_BGR, GL_RGB);
   /*  ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("game_over.png", GL_BGRA_EXT, GL_RGBA);
