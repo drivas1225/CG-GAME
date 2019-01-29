@@ -23,6 +23,7 @@ public:
         double distTodisplay = z - 50;
         double cord_text_x = 1.0/4.0;
         double cord_text_y = 1.0/3.0;
+        double dist_piso = -0.505;
 
         glPushMatrix();
 
@@ -30,18 +31,18 @@ public:
             glTranslated(0,0,PosZ);
             ///right
             glBegin(GL_QUADS);
-            glTexCoord2f(3*cord_text_x, cord_text_y     ); glVertex3f(tam_stage, -1          ,z);
+            glTexCoord2f(3*cord_text_x, cord_text_y     ); glVertex3f(tam_stage, dist_piso   ,z);
             glTexCoord2f(3*cord_text_x, 2*cord_text_y   ); glVertex3f(tam_stage, tam_stage   ,z);
             glTexCoord2f(2*cord_text_x, 2*cord_text_y   ); glVertex3f(tam_stage, tam_stage   ,distTodisplay);
-            glTexCoord2f(2*cord_text_x, cord_text_y     ); glVertex3f(tam_stage, -1          ,distTodisplay);
+            glTexCoord2f(2*cord_text_x, cord_text_y     ); glVertex3f(tam_stage, dist_piso   ,distTodisplay);
             glEnd();
 
             ///left
             glBegin(GL_QUADS);
-            glTexCoord2f(cord_text_x , cord_text_y      ); glVertex3f(-tam_stage, -1         ,distTodisplay);
+            glTexCoord2f(cord_text_x , cord_text_y      ); glVertex3f(-tam_stage, dist_piso  ,distTodisplay);
             glTexCoord2f(cord_text_x , 2*cord_text_y    ); glVertex3f(-tam_stage, tam_stage  ,distTodisplay);
             glTexCoord2f(0.0f        , 2*cord_text_y    ); glVertex3f(-tam_stage, tam_stage  ,z);
-            glTexCoord2f(0.0f        , cord_text_y      ); glVertex3f(-tam_stage, -1         ,z);
+            glTexCoord2f(0.0f        , cord_text_y      ); glVertex3f(-tam_stage, dist_piso  ,z);
             glEnd();
 
             ///top
@@ -54,11 +55,20 @@ public:
 
             ///front
             glBegin(GL_QUADS);
-            glTexCoord2f(2*cord_text_x, cord_text_y     ); glVertex3f( tam_stage, -1         ,distTodisplay);
+            glTexCoord2f(2*cord_text_x, cord_text_y     ); glVertex3f( tam_stage, dist_piso  ,distTodisplay);
             glTexCoord2f(2*cord_text_x, 2*cord_text_y   ); glVertex3f( tam_stage, tam_stage  ,distTodisplay);
             glTexCoord2f(cord_text_x  , 2*cord_text_y   ); glVertex3f(-tam_stage, tam_stage  ,distTodisplay);
-            glTexCoord2f(cord_text_x  , cord_text_y     ); glVertex3f(-tam_stage, -1         ,distTodisplay);
+            glTexCoord2f(cord_text_x  , cord_text_y     ); glVertex3f(-tam_stage, dist_piso  ,distTodisplay);
             glEnd();
+
+            ///bottom
+            glBegin(GL_QUADS);
+            glTexCoord2f(2*cord_text_x, 0               ); glVertex3f( tam_stage, dist_piso  ,z+2);
+            glTexCoord2f(2*cord_text_x, cord_text_y     ); glVertex3f( tam_stage, dist_piso  ,distTodisplay);
+            glTexCoord2f(cord_text_x  , cord_text_y     ); glVertex3f(-tam_stage, dist_piso  ,distTodisplay);
+            glTexCoord2f(cord_text_x  , 0               ); glVertex3f(-tam_stage, dist_piso  ,z+2);
+            glEnd();
+
 
         glPopMatrix();
 
