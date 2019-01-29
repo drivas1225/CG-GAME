@@ -32,7 +32,7 @@ public:
         PosY = rand()%2;
         if(PosY>0) PosY = 1;
         PosZ = z- 30 - (i+1)*(rand()%100);
-        cout<< PosX << " "<<PosY<<" "<<PosZ<<endl;
+        //cout<< PosX << " "<<PosY<<" "<<PosZ<<endl;
         exploited = false;
         alpha = 0.0;
     }
