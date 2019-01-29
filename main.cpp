@@ -50,7 +50,7 @@ GLint sprite;
 GLint spike;
 
 //luz
-GLfloat position[] = { 0.0f, 5.0f, 10.0f, 0.0 };
+GLfloat position[] = { 0.0f, 10.0f, 10.0f, 0.0 };
 
 
 ///coins
@@ -255,6 +255,7 @@ void displayGizmo()
 {
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, ground);
+    glNormal3f(0, 1, 0);
     glBegin(GL_QUADS);
     //glColor3f(0.156f,0.396f,0.721f);
     glTexCoord2f(1.0, 1.0);
@@ -277,6 +278,32 @@ GLvoid initGL()
 
 
     //enable light : try without it
+
+    //materiales
+    GLfloat roofAmbient[] = {0.3f, 0.3f, 0.3f, 1.0f};
+    GLfloat mat_defused[] = {0.7f, 0.7f, 0.7f, 1.0f};
+    GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    GLfloat mat_shininess[] = {5.0f};
+
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, roofAmbient);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_defused);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
+
+
+    //colores: luz roja
+    GLfloat Light0Amb[4] = {0.3f, 0.3f, 0.3f, 1.0f};
+    GLfloat Light0Dif[4] = {0.7f, 0.6f, 0.5f, 1.0f};
+    GLfloat Light0Spec[4]= {1.0f, 0.9f, 0.8f, 1.0f};
+
+    GLfloat direction[] = {0.0, -1.0, 0.0};
+
+    // los parámetros de colores de la luz 0
+    glLightfv(GL_LIGHT0, GL_AMBIENT, Light0Amb);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, Light0Dif);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, Light0Spec);
+
+
     glLightfv(GL_LIGHT0, GL_POSITION, position);
     glEnable(GL_LIGHTING);
     //light 0 "on": try without it

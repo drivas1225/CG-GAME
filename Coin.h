@@ -40,7 +40,7 @@ public:
             glPushMatrix();
             glTranslated(PosX,PosY,PosZ);
             glColor3f(0.62,0.56,0.0038);
-            if(extra_shield>7)glColor3f(0.0,0.0,1.0);
+            if(extra_shield>8)glColor3f(0.0,0.0,1.0);
             glutSolidCube(0.3);
             glDisable(GL_TEXTURE);
             //glutSolidSphere(0.3,50,50);
