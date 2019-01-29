@@ -1,0 +1,7 @@
+bin
+FreeImage
+obj
+*.cbp
+game
+*.depend
+*.layout
