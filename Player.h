@@ -137,10 +137,10 @@ public:
 
         glTranslated(0,0,PosZ+2);
         glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f); glVertex2d(-1, 2);
         glTexCoord2f(1.0f, 1.0f); glVertex2d(1, 2);
-        glTexCoord2f(1.0f, 0.0f); glVertex2d(1, 1);
+        glTexCoord2f(0.0f, 1.0f); glVertex2d(-1, 2);
         glTexCoord2f(0.0f, 0.0f); glVertex2d(-1, 1);
+        glTexCoord2f(1.0f, 0.0f); glVertex2d(1, 1);
         glEnd();
         glDisable(GL_TEXTURE_2D);
 

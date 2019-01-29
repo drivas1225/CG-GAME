@@ -254,21 +254,40 @@ int main(int argc, char **argv)
 //dibuja el suelo
 void displayGizmo()
 {
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, ground);
-    glNormal3f(0, 1, 0);
-    glBegin(GL_QUADS);
-    //glColor3f(0.156f,0.396f,0.721f);
-    glTexCoord2f(1.0, 1.0);
-    glVertex3d(1.5, -0.5,pl.PosZ - 170);
-    glTexCoord2f(0.0, 1.0);
-    glVertex3d(-2, -0.5,pl.PosZ - 170);
-    glTexCoord2f(0.0, 0.0f);
-    glVertex3d(-2, -0.5,-10-pl.PosZ);
-    glTexCoord2f(1.0, 0.0f);
-    glVertex3d(2, -0.5,-10-pl.PosZ);
-    glEnd();
-    glDisable(GL_TEXTURE_2D);
+    if(fmod(pl.PosZ,170) < 1){
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, ground);
+        glNormal3f(0, 1, 0);
+        glBegin(GL_QUADS);
+        //glColor3f(0.156f,0.396f,0.721f);
+        glTexCoord2f(1.0, 1.0);
+        glVertex3d(1.5, -0.5,pl.PosZ - 170);
+        glTexCoord2f(0.0, 1.0);
+        glVertex3d(-2, -0.5,pl.PosZ - 170);
+        glTexCoord2f(0.0, 0.0f);
+        glVertex3d(-2, -0.5,-10-pl.PosZ);
+        glTexCoord2f(1.0, 0.0f);
+        glVertex3d(2, -0.5,-10-pl.PosZ);
+        glEnd();
+        glDisable(GL_TEXTURE_2D);
+    }
+    else{
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, ground);
+        glNormal3f(0, 1, 0);
+        glBegin(GL_QUADS);
+        glTexCoord2f(1.0, 1.0);
+        glVertex3d(1.5, -0.5,2*pl.PosZ - 170);
+        glTexCoord2f(0.0, 1.0);
+        glVertex3d(-2, -0.5,2*pl.PosZ - 170);
+        glTexCoord2f(0.0, 0.0f);
+        glVertex3d(-2, -0.5,-10-2*pl.PosZ);
+        glTexCoord2f(1.0, 0.0f);
+        glVertex3d(2, -0.5,-10-2*pl.PosZ);
+        glEnd();
+        glDisable(GL_TEXTURE_2D);
+    }
+
 }
 
 
