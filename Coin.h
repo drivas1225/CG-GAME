@@ -17,7 +17,7 @@ public:
     GLint texture;
 
     Coin(){
-        PosX = rand()%3-1;;
+        PosX = rand()%3-1;
         PosY = rand()%2;
         PosZ = -50- (rand()%100);
         gotcha = false;

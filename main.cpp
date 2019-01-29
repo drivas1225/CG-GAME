@@ -16,6 +16,7 @@
 #include "Obstacle.h"
 #include "Coin.h"
 #include "TextureManager.h"
+#include "stage.h"
 
 using namespace std;
 
@@ -47,6 +48,9 @@ Player pl;
 GLint sprite;
 GLint spike;
 
+//luz
+GLfloat position[] = { 0.0f, 5.0f, 10.0f, 0.0 };
+
 
 ///coins
 vector<Coin> coins;
@@ -60,7 +64,8 @@ int enemies = 5;
 
 GLUquadricObj *sphere = NULL;
 
-
+///var of stage
+stage mundo;
 
 ///Variables de la camara
 double CamPosX = 0;
@@ -108,6 +113,7 @@ GLint ground;
 GLint texture_teaPot;
 GLint texture_gameOver;
 GLint texture_shield;
+GLint texture_mundo;
 
 
 
@@ -203,7 +209,8 @@ int main(int argc, char **argv)
     texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
-    spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_RGB, GL_RGB);
+    spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
+    texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map.jpg", GL_BGR, GL_RGB);
     //ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
     //texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
     //texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA_EXT, GL_RGBA);
@@ -264,7 +271,7 @@ void displayGizmo()
 
 GLvoid initGL()
 {
-    GLfloat position[] = { 0.0f, 5.0f, 10.0f, 0.0 };
+
 
     //enable light : try without it
     glLightfv(GL_LIGHT0, GL_POSITION, position);
@@ -319,8 +326,15 @@ GLvoid window_display()
     gluPerspective(45,1,0.1,100);
     gluLookAt(0, 1.5, pl.PosZ+5, 0, 0, pl.PosZ-5, 0, 1, 0);
 
+    position[2] = pl.PosZ+10;
+    glLightfv(GL_LIGHT0, GL_POSITION, position);
 
 	glEnable(GL_BLEND);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture_mundo);
+    mundo.display(pl.PosZ);
+
 
     displayGizmo();
     for(int i =0; i<obstacles.size(); i++){
