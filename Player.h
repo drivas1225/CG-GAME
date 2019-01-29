@@ -19,6 +19,8 @@ public:
     double alpha2 = 0;
     int cantpoints = 50;
     double angulo = 360/cantpoints;
+    int shields = 3;
+
     GLUquadricObj * sphere = NULL;
     GLint texture_shield;
 
@@ -46,12 +48,17 @@ public:
     {
 
         glPushMatrix();
-        if(hit && !jump){
+        if(shields < 0){
+            hit = false;
+            alpha2 = 0;
+        }
+        if(hit && !jump && shields > -1){
             if (alpha2 >= 180 || GameOver){
               hit = false;
               alpha2 = 0;
-            }else
+            }else{
                 alpha2 += 600*dt;
+            }
         }
         if(jump){
             double y2 = 1.5*(sin(alpha*3.1416/180));
@@ -119,7 +126,7 @@ public:
 
     void hitObject(){
         hit = true;
-        //alpha = 0;
+        if(shields > 0)shields--;
     }
 
     void displayGameOver(){
@@ -129,8 +136,6 @@ public:
         //glColor3f(1.0F,0.0F,0.0F);
 
         glTranslated(0,0,PosZ+2);
-        //glEnable(GL_TEXTURE_2D);
-        //glBindTexture(GL_TEXTURE_2D, texture_gameOver);
         glBegin(GL_QUADS);
         glTexCoord2f(0.0f, 1.0f); glVertex2d(-1, 2);
         glTexCoord2f(1.0f, 1.0f); glVertex2d(1, 2);

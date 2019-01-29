@@ -17,6 +17,7 @@
 #include "Coin.h"
 #include "TextureManager.h"
 #include "stage.h"
+//#include "TextureManager.cpp"
 
 using namespace std;
 
@@ -211,10 +212,13 @@ int main(int argc, char **argv)
     texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map.jpg", GL_BGR, GL_RGB);
-    //ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
-    //texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
-    //texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA_EXT, GL_RGBA);
-    //spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_RGB, GL_RGB);
+  /*  ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
+    texture_teaPot = TextureManager::Inst()->LoadTexture("teapot.png", GL_BGRA_EXT, GL_BGRA);
+    texture_gameOver = TextureManager::Inst()->LoadTexture("game_over.png", GL_BGRA_EXT, GL_RGBA);
+    texture_shield = TextureManager::Inst()->LoadTexture("shield_tr.png", GL_BGRA, GL_RGBA);
+    spike = TextureManager::Inst()->LoadTexture("tnt.jpg", GL_BGR, GL_RGB);
+    texture_mundo = TextureManager::Inst()->LoadTexture("cube_map.jpg", GL_BGR, GL_RGB);
+*/
 
     glutDisplayFunc(&window_display);
 
@@ -357,7 +361,6 @@ GLvoid window_display()
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, spike);
         time (&end);
-        cout<<"the time is: "<<difftime(end,start)<<endl;
         obstacles[i].display(difftime(end,start));
         glDisable(GL_TEXTURE_2D);
 
@@ -366,7 +369,8 @@ GLvoid window_display()
         float dist = distancia_euclideana_coin(pl,coins[i]);
         if(dist<0.75) {
             if(!coins[i].gotcha){
-                SCORE++;
+                if(coins[i].extra_shield>8) pl.shields++;
+                else SCORE++;
                 coins[i].gotcha = true;
             }
         }
@@ -380,7 +384,8 @@ GLvoid window_display()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_teaPot);
     pl.display(dt,GameOver);
-    if(pl.hit){
+    if(pl.hit && pl.shields>0){
+        //glColor3f(0,0,0);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texture_shield);
         pl.display_shield();
@@ -416,6 +421,17 @@ GLvoid window_display()
     glVertex3d(-25,25,0);
     glEnd();
 
+    string num_shields = "Shields: ";
+    glColor3f(1,1,1);
+    glRasterPos3f(-24, 20, 0);
+    ostringstream convert2;
+    convert2 << pl.shields;
+    num_shields += convert2.str();
+
+    for (int i = 0; num_shields[i] != '\0'; i ++)
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, num_shields[i]);
+
+
     string s = "Score: " ;
     ostringstream convert;
     convert << SCORE;
@@ -427,6 +443,7 @@ GLvoid window_display()
 
 	for (int i = 0; s[i] != '\0'; i ++)
 	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, s[i]);
+
 	if(GameOver){
 		string gameover = "GAME OVER!";
 		glColor3f(1,1,1);
@@ -438,8 +455,6 @@ GLvoid window_display()
 		for (int i = 0; gameover[i] != '\0'; i ++)
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, gameover[i]);
 	}
-
-
 
 
 	glEnable(GL_LIGHTING);
@@ -476,8 +491,7 @@ GLvoid window_key(unsigned char key, int x, int y)
         break;
 
     case SPACE_BAR:
-    	pl.hit = true;
-    	//pl.hitObject();
+    	pl.hitObject();
     	break;
 
     case INTRO:
@@ -486,6 +500,7 @@ GLvoid window_key(unsigned char key, int x, int y)
     		pl.PosZ = 0;
     		pl.PosY = 0;
     		pl.PosX = 0;
+            pl.shields = 3;
     		SCORE = 0;
     		obstacles.clear();
     		coins.clear();

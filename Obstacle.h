@@ -15,6 +15,9 @@ public:
     bool exploited;
     GLUquadricObj *sphere = NULL;
     float alpha = 0.0;
+    int effect = rand()%10;
+    bool direction_effect = rand()%2;
+
 
     Obstacle(int i){
         PosX = rand()%3-1;;
@@ -38,13 +41,25 @@ public:
             glPushMatrix();
             //if(PosY>0) glColor3f(0,0,1);
             //else glColor3f(1,1,1);
-            if(t>=10){
-                int effect = rand()%10;
-                //if(effect>=8){
+            if(t>=5){
+                if(effect>=8){
                     double x2 = 1.5*(sin(alpha*3.1416/180));
                     alpha += 300*0.01;
                     PosX = x2;
-                //}
+                }
+            }
+
+            if(t>=10){
+                if(effect>=2){
+                    if(direction_effect){
+                        double x2 = 1.5*(sin(alpha*3.1416/180));
+                        PosX = x2;
+                    }else{
+                        double y2 = 1.5*(sin(alpha*3.1416/180))+1.5;
+                        PosY = y2;
+                    }
+                    alpha += 300*0.01;
+                }
             }
 
             glTranslated(PosX,PosY,PosZ);
