@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -15,9 +15,9 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include "Coin.h"
-#include "TextureManager.h"
+//#include "TextureManager.h"
 #include "stage.h"
-//#include "TextureManager.cpp"
+#include "TextureManager.cpp"
 
 using namespace std;
 
@@ -206,19 +206,18 @@ int main(int argc, char **argv)
 
 
 
-    ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
+   /* ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
-    texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map.jpg", GL_BGR, GL_RGB);
-  /*  ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
+    texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map.jpg", GL_BGR, GL_RGB);*/
+    ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("game_over.png", GL_BGRA_EXT, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("cube_map.jpg", GL_BGR, GL_RGB);
-*/
 
     glutDisplayFunc(&window_display);
 
@@ -384,7 +383,7 @@ GLvoid window_display()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_teaPot);
     pl.display(dt,GameOver);
-    if(pl.hit && pl.shields>0){
+    if(pl.hit && pl.shields>-1){
         //glColor3f(0,0,0);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texture_shield);
@@ -425,7 +424,8 @@ GLvoid window_display()
     glColor3f(1,1,1);
     glRasterPos3f(-24, 20, 0);
     ostringstream convert2;
-    convert2 << pl.shields;
+    if(pl.shields > 0)convert2 << pl.shields-1;
+    else convert2 << pl.shields;
     num_shields += convert2.str();
 
     for (int i = 0; num_shields[i] != '\0'; i ++)
@@ -500,7 +500,7 @@ GLvoid window_key(unsigned char key, int x, int y)
     		pl.PosZ = 0;
     		pl.PosY = 0;
     		pl.PosX = 0;
-            pl.shields = 3;
+            pl.shields = 4;
     		SCORE = 0;
     		obstacles.clear();
     		coins.clear();

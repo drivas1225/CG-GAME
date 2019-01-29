@@ -19,7 +19,7 @@ public:
     double alpha2 = 0;
     int cantpoints = 50;
     double angulo = 360/cantpoints;
-    int shields = 3;
+    int shields = 4;
 
     GLUquadricObj * sphere = NULL;
     GLint texture_shield;
@@ -48,7 +48,7 @@ public:
     {
 
         glPushMatrix();
-        if(shields < 0){
+        if(shields <= 0){
             hit = false;
             alpha2 = 0;
         }
