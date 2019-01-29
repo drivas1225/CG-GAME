@@ -261,12 +261,12 @@ void displayGizmo()
     //glColor3f(0.156f,0.396f,0.721f);
     glTexCoord2f(1.0, 1.0);
     glVertex3d(1.5, -0.5,pl.PosZ - 170);
-    glTexCoord2f(1.0, 0.0f);
-    glVertex3d(2, -0.5,-10-pl.PosZ);
-    glTexCoord2f(0.0, 0.0f);
-    glVertex3d(-2, -0.5,-10-pl.PosZ);
     glTexCoord2f(0.0, 1.0);
     glVertex3d(-2, -0.5,pl.PosZ - 170);
+    glTexCoord2f(0.0, 0.0f);
+    glVertex3d(-2, -0.5,-10-pl.PosZ);
+    glTexCoord2f(1.0, 0.0f);
+    glVertex3d(2, -0.5,-10-pl.PosZ);
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
