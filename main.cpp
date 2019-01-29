@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -15,9 +15,9 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include "Coin.h"
-#include "TextureManager.h"
+//#include "TextureManager.h"
 #include "stage.h"
-//#include "TextureManager.cpp"
+#include "TextureManager.cpp"
 
 using namespace std;
 
@@ -205,21 +205,21 @@ int main(int argc, char **argv)
     time (&start);
 
 
-
+/*
     ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map1.jpg", GL_BGR, GL_RGB);
-  /*
+  */
     ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("game_over.png", GL_BGRA_EXT, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("cube_map1.jpg", GL_BGR, GL_RGB);
-*/
+
     glutDisplayFunc(&window_display);
 
     glutReshapeFunc(&window_reshape);
@@ -261,12 +261,12 @@ void displayGizmo()
     //glColor3f(0.156f,0.396f,0.721f);
     glTexCoord2f(1.0, 1.0);
     glVertex3d(1.5, -0.5,pl.PosZ - 170);
-    glTexCoord2f(1.0, 0.0f);
-    glVertex3d(2, -0.5,-10-pl.PosZ);
-    glTexCoord2f(0.0, 0.0f);
-    glVertex3d(-2, -0.5,-10-pl.PosZ);
     glTexCoord2f(0.0, 1.0);
     glVertex3d(-2, -0.5,pl.PosZ - 170);
+    glTexCoord2f(0.0, 0.0f);
+    glVertex3d(-2, -0.5,-10-pl.PosZ);
+    glTexCoord2f(1.0, 0.0f);
+    glVertex3d(2, -0.5,-10-pl.PosZ);
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
@@ -307,14 +307,13 @@ GLvoid initGL()
 
     glLightfv(GL_LIGHT0, GL_POSITION, position);
     glEnable(GL_LIGHTING);
-    //light 0 "on": try without it
     glEnable(GL_LIGHT0);
     glEnable(GL_TEXTURE_2D);
-    //glShadeModel(GL_SMOOTH); // modelo de shading try GL_FLAT
-    //glEnable(GL_CULL_FACE); //no trata las caras escondidas
-    //glEnable(GL_DEPTH_TEST); // Activa el Z-Buffer
-    //glDepthFunc(GL_LEQUAL); //Modo de funcionamiento del Z-Buffer
-    //glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Activa la corrección de perspectiva
+    glShadeModel(GL_SMOOTH); // modelo de shading try GL_FLAT
+    glEnable(GL_CULL_FACE); //no trata las caras escondidas
+    glEnable(GL_DEPTH_TEST); // Activa el Z-Buffer
+    glDepthFunc(GL_LEQUAL); //Modo de funcionamiento del Z-Buffer
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Activa la corrección de perspectiva
 
 
     //shading model : try GL_FLAT
