@@ -436,7 +436,7 @@ GLvoid window_display()
 
 
     glLoadIdentity();
-    glViewport(0,700,800,50);
+    glViewport(0,700,800,40);
     glDisable(GL_LIGHTING);
     glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
 
