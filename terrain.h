@@ -17,12 +17,15 @@ public:
         non_display = 0;
     }
 
-    void updatePositions(){
+    void updatePositions(double t){
         //srand(time(NULL));
         PosZ = PosZ-50 ;
-        srand(time(NULL));
-        non_display = rand()%4-0;
-        cout<<PosZ<<endl;
+        if(t<3) non_display = 0;
+        else{
+	        srand(time(NULL));
+	        non_display = rand()%4-0;
+        }
+        //cout<<PosZ<<endl;
 
 
     }

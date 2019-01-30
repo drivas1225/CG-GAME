@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -15,10 +15,10 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include "Coin.h"
-#include "TextureManager.h"
+//#include "TextureManager.h"
 #include "stage.h"
 #include "terrain.h"
-//#include "TextureManager.cpp"
+#include "TextureManager.cpp"
 
 using namespace std;
 
@@ -210,21 +210,21 @@ int main(int argc, char **argv)
     time (&start);
 
 
-
+/*
     ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map1.jpg", GL_BGR, GL_RGB);
-
-/*    ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
+*/
+    ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("game_over.png", GL_BGRA_EXT, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("cube_map1.jpg", GL_BGR, GL_RGB);
-*/
+
     glutDisplayFunc(&window_display);
 
     glutReshapeFunc(&window_reshape);
@@ -404,9 +404,16 @@ GLvoid window_display()
 
    // Ground terrain(pl.PosZ);
 
-    for(int i ; i <terrains.size();i++){
+    for(int i=0; i <terrains.size(); i++){
+
+
+        if(pl.PosX == -1 && terrains[i].non_display == 1 && abs(terrains[i].PosZ-pl.PosZ) < 1){
+            GameOver=1;
+            break;
+        }
         if(!GameOver&&terrains[i].PosZ > pl.PosZ+2){
-            terrains[i].updatePositions();
+            time (&end);
+            terrains[i].updatePositions(difftime(end,start));
         }
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, ground);
