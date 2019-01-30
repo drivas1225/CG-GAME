@@ -17,6 +17,7 @@
 #include "Coin.h"
 //#include "TextureManager.h"
 #include "stage.h"
+#include "terrain.h"
 #include "TextureManager.cpp"
 
 using namespace std;
@@ -61,6 +62,10 @@ int numCoins = 10;
 ///Obstacles
 vector<Obstacle> obstacles;
 int enemies = 5;
+
+//Terrain
+ vector<Ground> terrains;
+ int numGrounds = 50;
 
 
 GLUquadricObj *sphere = NULL;
@@ -242,6 +247,10 @@ int main(int argc, char **argv)
     	Coin coin;
     	coins.push_back(coin);
     }
+    for(int i=0; i<numGrounds; i++){
+        Ground gr(i);
+        terrains.push_back(gr);
+    }
 
 
 
@@ -252,43 +261,52 @@ int main(int argc, char **argv)
 
 
 //dibuja el suelo
-void displayGizmo()
+/*void displayGizmo()
 {
-    if(fmod(pl.PosZ,170) < 1){
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, ground);
-        glNormal3f(0, 1, 0);
-        glBegin(GL_QUADS);
-        //glColor3f(0.156f,0.396f,0.721f);
-        glTexCoord2f(1.0, 1.0);
-        glVertex3d(1.5, -0.5,pl.PosZ - 170);
-        glTexCoord2f(0.0, 1.0);
-        glVertex3d(-2, -0.5,pl.PosZ - 170);
-        glTexCoord2f(0.0, 0.0f);
-        glVertex3d(-2, -0.5,-10-pl.PosZ);
-        glTexCoord2f(1.0, 0.0f);
-        glVertex3d(2, -0.5,-10-pl.PosZ);
-        glEnd();
-        glDisable(GL_TEXTURE_2D);
-    }
-    else{
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, ground);
-        glNormal3f(0, 1, 0);
-        glBegin(GL_QUADS);
-        glTexCoord2f(1.0, 1.0);
-        glVertex3d(1.5, -0.5,2*pl.PosZ - 170);
-        glTexCoord2f(0.0, 1.0);
-        glVertex3d(-2, -0.5,2*pl.PosZ - 170);
-        glTexCoord2f(0.0, 0.0f);
-        glVertex3d(-2, -0.5,-10-2*pl.PosZ);
-        glTexCoord2f(1.0, 0.0f);
-        glVertex3d(2, -0.5,-10-2*pl.PosZ);
-        glEnd();
-        glDisable(GL_TEXTURE_2D);
-    }
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, ground);
+    glNormal3f(0, 1, 0);
+    glBegin(GL_QUADS);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3d(-0.8, -0.5,pl.PosZ-1);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3d(-2, -0.5,pl.PosZ-1);
+    glTexCoord2f(0.0, 0.0f);
+    glVertex3d(-2, -0.5,-0.5-pl.PosZ);
+    glTexCoord2f(1.0, 0.0f);
+    glVertex3d(-0.8, -0.5,-0.5-pl.PosZ);
+    glEnd();
 
-}
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, ground);
+    glNormal3f(0, 1, 0);
+    glBegin(GL_QUADS);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3d(0.65, -0.5,pl.PosZ - 50);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3d(-0.65, -0.5,pl.PosZ - 50);
+    glTexCoord2f(0.0, 0.0f);
+    glVertex3d(-0.65, -0.5,-10-pl.PosZ);
+    glTexCoord2f(1.0, 0.0f);
+    glVertex3d(0.65, -0.5,-10-pl.PosZ);
+    glEnd();
+
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, ground);
+    glNormal3f(0, 1, 0);
+    glBegin(GL_QUADS);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3d(2, -0.5,pl.PosZ - 50);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3d(0.8, -0.5,pl.PosZ - 50);
+    glTexCoord2f(0.0, 0.0f);
+    glVertex3d(0.8, -0.5,-10-pl.PosZ);
+    glTexCoord2f(1.0, 0.0f);
+    glVertex3d(2, -0.5,-10-pl.PosZ);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+}*/
 
 
 
@@ -384,8 +402,11 @@ GLvoid window_display()
     glBindTexture(GL_TEXTURE_2D, texture_mundo);
     mundo.display(pl.PosZ);
 
+   // Ground terrain(pl.PosZ);
 
-    displayGizmo();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, ground);
+
     for(int i =0; i<obstacles.size(); i++){
         float dist = distancia_euclideana(pl,obstacles[i]);
         if(!GameOver && dist < 0.75) {
