@@ -407,7 +407,15 @@ GLvoid window_display()
     for(int i=0; i <terrains.size(); i++){
 
 
-        if(pl.PosX == -1 && terrains[i].non_display == 1 && abs(terrains[i].PosZ-pl.PosZ) < 1){
+        if(pl.PosX == -1 && terrains[i].non_display == 1 && abs(terrains[i].PosZ-pl.PosZ) < 1 && !pl.jump){
+            GameOver=1;
+            break;
+        }
+        if(pl.PosX == 0 && terrains[i].non_display == 2 && abs(terrains[i].PosZ-pl.PosZ) < 1 && !pl.jump){
+            GameOver=1;
+            break;
+        }
+        if(pl.PosX == 1 && terrains[i].non_display == 3 && abs(terrains[i].PosZ-pl.PosZ) < 1 && !pl.jump){
             GameOver=1;
             break;
         }

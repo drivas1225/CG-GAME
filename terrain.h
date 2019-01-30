@@ -13,7 +13,7 @@ public:
     int non_display;
 
     Terrain(int i){
-        PosZ = 1.5*i;
+        PosZ = 2*i;
         non_display = 0;
     }
 
@@ -35,30 +35,30 @@ public:
             if(non_display!=1){
                 glNormal3f(0, 1, 0);
                 glBegin(GL_QUADS);
-                glTexCoord2f(1.0, 1.0)  ;glVertex3d(-0.65, -0.5,PosZ-1);
-                glTexCoord2f(0.0, 1.0)  ;glVertex3d(-2, -0.5,PosZ-1);
-                glTexCoord2f(0.0, 0.0f) ;glVertex3d(-2, -0.5,-0.5-PosZ);
-                glTexCoord2f(1.0, 0.0f) ;glVertex3d(-0.65, -0.5,-0.5-PosZ);
+                glTexCoord2f(1.0, 1.0)  ;glVertex3d(-0.65, -0.5,PosZ);
+                glTexCoord2f(0.0, 1.0)  ;glVertex3d(-2, -0.5,PosZ);
+                glTexCoord2f(0.0, 0.0f) ;glVertex3d(-2, -0.5,PosZ+2);
+                glTexCoord2f(1.0, 0.0f) ;glVertex3d(-0.65, -0.5,PosZ+2);
                 glEnd();
             }
 
             if(non_display!=2){
                 glNormal3f(0, 1, 0);
                 glBegin(GL_QUADS);
-                glTexCoord2f(1.0, 1.0); glVertex3d(0.65, -0.5,PosZ - 1);
-                glTexCoord2f(0.0, 1.0); glVertex3d(-0.65, -0.5,PosZ - 1);
-                glTexCoord2f(0.0, 0.0f);glVertex3d(-0.65, -0.5,-0.5-PosZ);
-                glTexCoord2f(1.0, 0.0f);glVertex3d(0.65, -0.5,-0.5-PosZ);
+                glTexCoord2f(1.0, 1.0); glVertex3d(0.65, -0.5,PosZ);
+                glTexCoord2f(0.0, 1.0); glVertex3d(-0.65, -0.5,PosZ);
+                glTexCoord2f(0.0, 0.0f);glVertex3d(-0.65, -0.5,PosZ+2);
+                glTexCoord2f(1.0, 0.0f);glVertex3d(0.65, -0.5,PosZ+2);
                 glEnd();
             }
 
             if(non_display!=3){
                 glNormal3f(0, 1, 0);
                 glBegin(GL_QUADS);
-                glTexCoord2f(1.0, 1.0)  ;glVertex3d(2, -0.5,PosZ - 1);
-                glTexCoord2f(0.0, 1.0)  ;glVertex3d(0.65, -0.5,PosZ - 1);
-                glTexCoord2f(0.0, 0.0f) ;glVertex3d(0.65, -0.5,-0.5-PosZ);
-                glTexCoord2f(1.0, 0.0f) ;glVertex3d(2, -0.5,-0.5-PosZ);
+                glTexCoord2f(1.0, 1.0)  ;glVertex3d(2, -0.5,PosZ);
+                glTexCoord2f(0.0, 1.0)  ;glVertex3d(0.65, -0.5,PosZ);
+                glTexCoord2f(0.0, 0.0f) ;glVertex3d(0.65, -0.5,PosZ+2);
+                glTexCoord2f(1.0, 0.0f) ;glVertex3d(2, -0.5,PosZ+2);
                 glEnd();
             }
 
