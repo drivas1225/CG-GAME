@@ -3,7 +3,7 @@
 #include <random>
 #include <time.h>
 
-//using namespace std;
+using namespace std;
 
 
 class Terrain{
@@ -18,6 +18,7 @@ public:
     void updatePositions(){
         //srand(time(NULL));
         PosZ = PosZ-50 ;
+        cout<<PosZ<<endl;
 
     }
 
@@ -28,7 +29,7 @@ public:
 		    glBegin(GL_QUADS);
 		    glTexCoord2f(1.0, 1.0)  ;glVertex3d(-0.65, -0.5,PosZ-1);
 		    glTexCoord2f(0.0, 1.0)  ;glVertex3d(-2, -0.5,PosZ-1);
-		    glTexCoord2f(0.0, 0.0f) ;glVertex3d(-2, -0.5,PosZ);
+		    glTexCoord2f(0.0, 0.0f) ;glVertex3d(-2, -0.5,-0.5-PosZ);
 		    glTexCoord2f(1.0, 0.0f) ;glVertex3d(-0.65, -0.5,-0.5-PosZ);
 		    glEnd();
 

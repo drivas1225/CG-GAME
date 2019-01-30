@@ -23,7 +23,7 @@ public:
         double distTodisplay = z - 50;
         double cord_text_x = 1.0/4.0;
         double cord_text_y = 1.0/3.0;
-        double dist_piso = -0.505;
+        double dist_piso = -10;
 
         glPushMatrix();
 

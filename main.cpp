@@ -581,6 +581,7 @@ GLvoid window_key(unsigned char key, int x, int y)
     		SCORE = 0;
     		obstacles.clear();
     		coins.clear();
+    		terrains.clear();
     		for(int i=0; i<enemies; i++){
                 Obstacle obs(i);
                 obstacles.push_back(obs);
@@ -588,6 +589,10 @@ GLvoid window_key(unsigned char key, int x, int y)
             for(int i=0; i<numCoins; i++){
                 Coin coin;
                 coins.push_back(coin);
+            }
+            for(int i=0; i<numGrounds; i++){
+                Terrain gr(i);
+                terrains.push_back(gr);
             }
             time(&start);
     	}
