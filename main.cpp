@@ -410,7 +410,7 @@ GLvoid window_display()
         }
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, ground);
-        terrains[i].display(1);
+        terrains[i].display();
         glDisable(GL_TEXTURE_2D);
     }
 
