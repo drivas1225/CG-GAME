@@ -1,5 +1,5 @@
 #define GLUT_DISABLE_ATEXIT_HACK
-//#include <windows.h>
+#include <windows.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,16 +11,20 @@
 #include <GL/glut.h>
 #include <GL/glext.h>
 #include <ctime>
+#include <MMSystem.h>
+
+#include <irrKlang.h>
 
 #include "Player.h"
 #include "Obstacle.h"
 #include "Coin.h"
-//#include "TextureManager.h"
+#include "TextureManager.h"
 #include "stage.h"
 #include "terrain.h"
-#include "TextureManager.cpp"
+//#include "TextureManager.cpp"
 
 using namespace std;
+using namespace irrklang;
 
 #define RED 0
 #define GREEN 0
@@ -40,6 +44,14 @@ GLvoid window_key(unsigned char key, int x, int y);
 
 bool GameOver = false;
 time_t start,end;
+
+
+///sound
+ISoundEngine *SoundEngine = createIrrKlangDevice();
+ISoundSource *music = SoundEngine->addSoundSourceFromFile("C:/spring/work space/CG-GAME/music1.mp3");
+ISoundSource *coinsSound = SoundEngine->addSoundSourceFromFile("C:/spring/work space/CG-GAME/coins-1.wav");
+
+
 
 ///Putaje
 int SCORE = 0;
@@ -194,6 +206,7 @@ void RotateCamera()
 int main(int argc, char **argv)
 {
 
+
     glutInit(&argc, argv);
 
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
@@ -207,24 +220,28 @@ int main(int argc, char **argv)
     initGL();
     init_scene();
 
+    music->setDefaultVolume(1.0f);
+    SoundEngine->play2D(music, GL_TRUE);
+
+
     time (&start);
 
 
-/*
     ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map1.jpg", GL_BGR, GL_RGB);
-*/
+
+/*
     ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
     texture_teaPot = TextureManager::Inst()->LoadTexture("teapot.png", GL_BGRA_EXT, GL_BGRA);
     texture_gameOver = TextureManager::Inst()->LoadTexture("game_over.png", GL_BGRA_EXT, GL_RGBA);
     texture_shield = TextureManager::Inst()->LoadTexture("shield_tr.png", GL_BGRA, GL_RGBA);
     spike = TextureManager::Inst()->LoadTexture("tnt.jpg", GL_BGR, GL_RGB);
     texture_mundo = TextureManager::Inst()->LoadTexture("cube_map1.jpg", GL_BGR, GL_RGB);
-
+*/
     glutDisplayFunc(&window_display);
 
     glutReshapeFunc(&window_reshape);
@@ -251,6 +268,11 @@ int main(int argc, char **argv)
         Terrain gr(i);
         terrains.push_back(gr);
     }
+
+
+
+    //PlaySound(TEXT("C:/spring/work space/CG-GAME/prueba.wav"),NULL, SND_ASYNC);
+
 
 
 
@@ -378,6 +400,11 @@ float distancia_euclideana_coin(Player jugador, Coin obstaculo){
 
 GLvoid window_display()
 {
+    /*if(GameOver){
+        PlaySound(NULL,NULL,0);
+    }*/
+
+
     clock_t end = clock();
     time_h = glutGet(GLUT_ELAPSED_TIME); // recupera el tiempo ,que paso desde el incio de programa
     dt = float(time_h -timebase)/1000.0;// delta time
@@ -463,6 +490,7 @@ GLvoid window_display()
                 if(coins[i].extra_shield>8) pl.shields++;
                 else SCORE++;
                 coins[i].gotcha = true;
+                SoundEngine->play2D(coinsSound);
             }
         }
         if(coins[i].PosZ > pl.PosZ+2){
@@ -588,6 +616,7 @@ GLvoid window_key(unsigned char key, int x, int y)
 
     case INTRO:
     	if(GameOver) {
+            //PlaySound(TEXT("C:/spring/work space/CG-GAME/prueba.wav"),NULL, SND_ASYNC);
     		GameOver = false;
     		pl.PosZ = 0;
     		pl.PosY = 0;

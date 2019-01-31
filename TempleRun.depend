@@ -34,7 +34,7 @@
 	<random>
 	<time.h>
 
-1548867320 source:c:\spring\work space\cg-game\main.cpp
+1548949427 source:c:\spring\work space\cg-game\main.cpp
 	<windows.h>
 	<math.h>
 	<stdlib.h>
@@ -47,6 +47,8 @@
 	<GL/glut.h>
 	<GL/glext.h>
 	<ctime>
+	<MMSystem.h>
+	<irrKlang.h>
 	"Player.h"
 	"Obstacle.h"
 	"Coin.h"
@@ -120,9 +122,106 @@
 	<time.h>
 	"TextureManager.h"
 
-1548867552 c:\spring\work space\cg-game\terrain.h
+1548870751 c:\spring\work space\cg-game\terrain.h
 	<iostream>
 	<GL/glut.h>
 	<random>
 	<time.h>
+
+1517321046 c:\spring\work space\cg-game\irrklang-1.6.0\include\irrklang.h
+	"ik_irrKlangTypes.h"
+	"ik_vec3d.h"
+	"ik_IRefCounted.h"
+	"ik_IVirtualRefCounted.h"
+	"ik_ESoundOutputDrivers.h"
+	"ik_ESoundEngineOptions.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+	"ik_ISoundEngine.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_IAudioStream.h"
+	"ik_IAudioStreamLoader.h"
+	"ik_ISoundEffectControl.h"
+	"ik_ISoundStopEventReceiver.h"
+	"ik_IFileFactory.h"
+	"ik_IFileReader.h"
+	"ik_ISoundDeviceList.h"
+	"ik_IAudioRecorder.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_irrklangtypes.h
+	<wchar.h>
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_vec3d.h
+	<math.h>
+	"ik_irrKlangTypes.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_irefcounted.h
+	"ik_irrKlangTypes.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_ivirtualrefcounted.h
+	"ik_irrKlangTypes.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_esoundoutputdrivers.h
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_esoundengineoptions.h
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_estreammodes.h
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_saudiostreamformat.h
+	"ik_IRefCounted.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_isoundengine.h
+	"ik_IRefCounted.h"
+	"ik_vec3d.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_EStreamModes.h"
+	"ik_IFileFactory.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1517241632 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_isoundsource.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_isound.h
+	"ik_IVirtualRefCounted.h"
+	"ik_ISoundEffectControl.h"
+	"ik_vec3d.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_isoundeffectcontrol.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_ifilefactory.h
+	"ik_IRefCounted.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_isoundmixedoutputreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_iaudiostream.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_iaudiostreamloader.h
+	"ik_IRefCounted.h"
+	"ik_IFileReader.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_ifilereader.h
+	"ik_IRefCounted.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_isoundstopeventreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1517241608 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_isounddevicelist.h
+	"ik_IRefCounted.h"
+
+1517241624 c:\spring\work space\cg-game\irrklang-1.6.0\include\ik_iaudiorecorder.h
+	"ik_IRefCounted.h"
+	"ik_ISoundSource.h"
 
