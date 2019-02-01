@@ -50,8 +50,13 @@ time_t start,end;
 ISoundEngine *SoundEngine = createIrrKlangDevice();
 ISoundSource *music = SoundEngine->addSoundSourceFromFile("C:/spring/work space/CG-GAME/music1.mp3");
 ISoundSource *coinsSound = SoundEngine->addSoundSourceFromFile("C:/spring/work space/CG-GAME/coins-1.wav");
+ISoundSource *deadSound = SoundEngine->addSoundSourceFromFile("C:/spring/work space/CG-GAME/deadSong.wav");
+ISoundSource *jumpSound = SoundEngine->addSoundSourceFromFile("C:/spring/work space/CG-GAME/jump.wav");
+ISoundSource *extraShieldSound = SoundEngine->addSoundSourceFromFile("C:/spring/work space/CG-GAME/extraShield.wav");
+ISoundSource *aliasMusic = SoundEngine->addSoundSourceAlias(music,"aliasMusic");
 
-
+///flag of sound
+bool sono = false;
 
 ///Putaje
 int SCORE = 0;
@@ -74,6 +79,8 @@ int numCoins = 10;
 ///Obstacles
 vector<Obstacle> obstacles;
 int enemies = 5;
+
+
 
 //Terrain
  vector<Terrain> terrains;
@@ -132,7 +139,8 @@ GLint texture_teaPot;
 GLint texture_gameOver;
 GLint texture_shield;
 GLint texture_mundo;
-
+GLint texture_coin;
+GLint texture_coinShield;
 
 
 
@@ -151,6 +159,7 @@ GLvoid callback_special(int key, int x, int y)
 	    {
 	    case GLUT_KEY_UP:
 	        pl.move(key);
+	        SoundEngine->play2D(jumpSound);
 	        glutPostRedisplay();			// et on demande le réaffichage.
 	        break;
 
@@ -220,19 +229,18 @@ int main(int argc, char **argv)
     initGL();
     init_scene();
 
-    music->setDefaultVolume(1.0f);
-    SoundEngine->play2D(music, GL_TRUE);
-
 
     time (&start);
 
 
-    ground = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
-    texture_teaPot = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot.png", GL_BGRA_EXT, GL_BGRA);
-    texture_gameOver = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
-    texture_shield = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
-    spike = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
-    texture_mundo = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map1.jpg", GL_BGR, GL_RGB);
+    ground          = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/grass2.jpg", GL_RGB, GL_RGB);
+    texture_teaPot  = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/teapot2.jpg", GL_BGR, GL_RGB);
+    texture_coin  = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/coin.jpg", GL_BGR, GL_RGB);
+    texture_coinShield  = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_texture.jpg", GL_BGR, GL_RGB);
+    texture_gameOver= TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/game_over.png", GL_BGRA, GL_RGBA);
+    texture_shield  = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/shield_tr.png", GL_BGRA, GL_RGBA);
+    spike           = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/tnt.jpg", GL_BGR, GL_RGB);
+    texture_mundo   = TextureManager::Inst()->LoadTexture("C:/spring/work space/CG-GAME/cube_map1.jpg", GL_BGR, GL_RGB);
 
 /*
     ground = TextureManager::Inst()->LoadTexture("grass2.jpg", GL_RGB, GL_RGB);
@@ -273,6 +281,14 @@ int main(int argc, char **argv)
 
     //PlaySound(TEXT("C:/spring/work space/CG-GAME/prueba.wav"),NULL, SND_ASYNC);
 
+    music->setDefaultVolume(0.7f);
+    coinsSound->setDefaultVolume(0.3f);
+    deadSound->setDefaultVolume(0.3f);
+    jumpSound->setDefaultVolume(1.0f);
+    extraShieldSound->setDefaultVolume(0.3f);
+
+
+    SoundEngine->play2D(music, GL_TRUE);
 
 
 
@@ -490,19 +506,35 @@ GLvoid window_display()
                 if(coins[i].extra_shield>8) pl.shields++;
                 else SCORE++;
                 coins[i].gotcha = true;
-                SoundEngine->play2D(coinsSound);
+                if(coins[i].extra_shield > 8){
+                    SoundEngine->play2D(extraShieldSound);
+                }else{
+                    SoundEngine->play2D(coinsSound);
+                }
+
             }
         }
         if(coins[i].PosZ > pl.PosZ+2){
             coins[i].updatePositions(pl.PosZ);
         }
+
+        ///draw Coins
+        glEnable(GL_TEXTURE_2D);
+        if(coins[i].extra_shield>8){
+            glBindTexture(GL_TEXTURE_2D, texture_coinShield);
+        }
+        else{
+            glBindTexture(GL_TEXTURE_2D, texture_coin);
+        }
         coins[i].display();
+        glDisable(GL_TEXTURE_2D);
     }
 
     ///drow player
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_teaPot);
     pl.display(dt,GameOver);
+
     if(pl.hit && pl.shields>-1){
         //glColor3f(0,0,0);
         glEnable(GL_TEXTURE_2D);
@@ -574,6 +606,13 @@ GLvoid window_display()
 		glRasterPos3f(-4.6, -10, 0);
 		for (int i = 0; gameover[i] != '\0'; i ++)
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, gameover[i]);
+
+        if(!sono){
+            sono = true;
+            SoundEngine->stopAllSounds();
+            SoundEngine->play2D(deadSound);
+        }
+
 	}
 
 
@@ -618,6 +657,7 @@ GLvoid window_key(unsigned char key, int x, int y)
     	if(GameOver) {
             //PlaySound(TEXT("C:/spring/work space/CG-GAME/prueba.wav"),NULL, SND_ASYNC);
     		GameOver = false;
+    		sono = false;
     		pl.PosZ = 0;
     		pl.PosY = 0;
     		pl.PosX = 0;
@@ -639,6 +679,7 @@ GLvoid window_key(unsigned char key, int x, int y)
                 terrains.push_back(gr);
             }
             time(&start);
+            SoundEngine->play2D(music, GL_TRUE);
     	}
     	break;
 

@@ -3,8 +3,10 @@
 #include <random>
 #include <time.h>
 #include <ctime>
+#include <math.h>
 
 using namespace std;
+
 
 
 class Obstacle{
@@ -39,8 +41,21 @@ public:
     void display(double t){
         if(!exploited){
             glPushMatrix();
-            //if(PosY>0) glColor3f(0,0,1);
-            //else glColor3f(1,1,1);
+
+            glPushMatrix();
+            //glRotated(90,1,0,0);
+            if(PosY>0){
+                double radio = (PosY)*0.6;
+                radio = 1.5-radio;
+                glColor4f(0,0,0,0.5);
+                glBegin(GL_POLYGON);
+                    for(double i = 0; i < 2 * 3.141596; i += 3.141596 / 6)
+                        glVertex3f(cos(i) * radio + PosX, 0 , PosZ - (sin(i) * radio));
+                glEnd();
+            }
+            glPopMatrix();
+            //else
+            glColor3f(1,1,1);
             if(t>=5){
                 if(effect>=8){
                     double x2 = 1.5*(sin(alpha*3.1416/180));

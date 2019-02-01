@@ -57,7 +57,7 @@ public:
               hit = false;
               alpha2 = 0;
             }else{
-                alpha2 += 600*dt;
+                alpha2 += 300*dt;
             }
         }
         if(jump){
@@ -84,7 +84,7 @@ public:
         PosZ -= 30*dt*(!GameOver);
         glTranslated(PosX,PosY,PosZ);
         glRotatef(90,0,1,0);
-        //glColor3f(1.0,1.0,0);
+        //glColor3f(0.0,1.0,1.0);
         glutSolidTeapot(0.5);
         glPopMatrix();
 

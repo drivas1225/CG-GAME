@@ -15,7 +15,8 @@ public:
     double PosZ;
     bool gotcha;
     int extra_shield = rand()%10;
-    GLUquadricObj *cylinder = NULL;
+    GLUquadricObj *sphere= NULL;
+
 
 
     Coin(){
@@ -38,8 +39,8 @@ public:
         if(!gotcha){
             glPushMatrix();
             glTranslated(PosX,PosY,PosZ);
-            glColor3f(0.62,0.56,0.0038);
-            if(extra_shield>8)glColor3f(0.0,0.0,1.0);
+            //glColor3f(0.62,0.56,0.0038);
+            //if(extra_shield>8)glColor3f(0.0,0.0,1.0);
            /*glRotatef(-90, 1, 0, 0);
             cylinder = gluNewQuadric();
             gluQuadricDrawStyle(cylinder, GLU_FILL);
@@ -48,8 +49,15 @@ public:
             gluCylinder(cylinder,0.2,0.2,0.2,30,30);
             gluDeleteQuadric(cylinder);*/
 
-            glutSolidSphere(0.15,30,30);
-            glDisable(GL_TEXTURE);
+            sphere = gluNewQuadric();
+            gluQuadricDrawStyle(sphere, GLU_FILL);
+            gluQuadricTexture(sphere, 1);
+            gluQuadricNormals(sphere, GLU_SMOOTH);
+            gluSphere(sphere,0.15,50,50);
+            gluDeleteQuadric(sphere);
+            //glutSolidCube(0.15);
+            //glutSolidSphere(0.15,30,30);
+            //glDisable(GL_TEXTURE);
             //glutSolidSphere(0.3,50,50);
             glPopMatrix();
         }
