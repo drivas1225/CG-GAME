@@ -574,7 +574,7 @@ GLvoid window_display()
 
     string num_shields = "Shields: ";
     glColor3f(1,1,1);
-    glRasterPos3f(-24, 20, 0);
+    glRasterPos3f(-18, -1, 0);
     ostringstream convert2;
     if(pl.shields > 0)convert2 << pl.shields-1;
     else convert2 << pl.shields;
