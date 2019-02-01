@@ -45,12 +45,12 @@ public:
             glPushMatrix();
             //glRotated(90,1,0,0);
             if(PosY>0){
-                double radio = (PosY)*0.6;
-                radio = 1.5-radio;
+                double radio = (PosY+0.5)*0.7;
+                radio = 1.05-radio;
                 glColor4f(0,0,0,0.5);
                 glBegin(GL_POLYGON);
                     for(double i = 0; i < 2 * 3.141596; i += 3.141596 / 6)
-                        glVertex3f(cos(i) * radio + PosX, 0 , PosZ - (sin(i) * radio));
+                        glVertex3f(cos(i) * 0.3 + PosX, -0.4 , PosZ - (sin(i) * 0.3));
                 glEnd();
             }
             glPopMatrix();

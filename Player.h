@@ -48,6 +48,7 @@ public:
     {
 
         glPushMatrix();
+
         if(shields <= 0){
             hit = false;
             alpha2 = 0;
@@ -80,14 +81,32 @@ public:
         }
 
 
-
         PosZ -= 30*dt*(!GameOver);
         glTranslated(PosX,PosY,PosZ);
         glRotatef(90,0,1,0);
         //glColor3f(0.0,1.0,1.0);
         glutSolidTeapot(0.5);
+
+
         glPopMatrix();
 
+        glPushMatrix();
+            //glRotated(90,1,0,0);
+            if(PosY>0){
+                double radio = (PosY)*0.7;
+                radio = 0.5-radio;
+                if (radio<0){
+                    radio = 0;
+                }
+                glColor4f(0,0,0,0.5);
+                glBegin(GL_POLYGON);
+                    for(double i = 0; i < 2 * 3.141596; i += 3.141596 / 6)
+                        glVertex3f(cos(i) * radio + PosX, -0.4 , PosZ - (sin(i) * radio));
+                glEnd();
+            }
+            glPopMatrix();
+
+            glColor3f(1,1,1);
 
     }
 

@@ -56,13 +56,13 @@
 	"stage.h"
 	"terrain.h"
 
-1549028959 c:\spring\work space\cg-game\player.h
+1549034724 c:\spring\work space\cg-game\player.h
 	<iostream>
 	"math.h"
 	<GL/glut.h>
 	"TextureManager.h"
 
-1549033713 c:\spring\work space\cg-game\obstacle.h
+1549036706 c:\spring\work space\cg-game\obstacle.h
 	<iostream>
 	<GL/glut.h>
 	<random>
